@@ -27,10 +27,15 @@ export const PROJECTS = [
     year: "2024",
     description: "Herramienta optimizadora, creadora y editora de prompts. Maximiza la calidad de las interacciones con LLMs mediante ingeniería de prompts avanzada.",
     color: "#8b5cf6", // Purple (AI)
+    video: "/media/aevni-optimizar.webm",
+    poster: "/media/aevni-optimizar-poster.webp",
     image: "/media/aevni.webp",
     gallery: [
+      { type: 'video', src: '/media/aevni-optimizar.webm', poster: '/media/aevni-optimizar-poster.webp', caption: 'Demo: Optimización de Prompts y Ahorro de Tokens' },
       { type: 'image', src: '/media/aevni.webp', caption: 'Vista Principal: Selector de Proveedores y Modos' },
       { type: 'image', src: '/media/aevni-crear.webp', caption: 'Creador de Prompts con Descripción y Tono' },
+      { type: 'image', src: '/media/aevni-diff.webp', caption: 'Análisis y Comparación de Diferencias en el Prompt' },
+      { type: 'image', src: '/media/aevni-resultado.webp', caption: 'Resultado de Optimización y Evaluación de Tokens' },
       { type: 'image', src: '/media/aevni-directorio.webp', caption: 'Directorio de Modelos Recomendados' }
     ],
     fullDescription: "AEVNI actúa como un meta-asistente para mejorar la interacción con los LLMs. Reduce significativamente el conteo de tokens (hasta un 40% de ahorro) reestructurando y optimizando los prompts antes de enviarlos a modelos de producción, manteniendo intacta la intención y calidad original de las instrucciones."
