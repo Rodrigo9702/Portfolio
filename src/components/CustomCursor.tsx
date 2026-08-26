@@ -6,8 +6,14 @@ import { motion } from "framer-motion";
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    // Check if device is touch based
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      setIsTouchDevice(true);
+      return;
+    }
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -34,6 +40,8 @@ export default function CustomCursor() {
       window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
+
+  if (isTouchDevice) return null;
 
   return (
     <>

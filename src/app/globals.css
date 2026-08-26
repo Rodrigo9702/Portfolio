@@ -23,11 +23,16 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
-  cursor: none; /* Escondemos el cursor nativo para usar nuestro CustomCursor */
 }
 
-a, button, input, textarea, select {
-  cursor: none;
+/* Escondemos el cursor nativo solo en dispositivos con mouse */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, input, textarea, select {
+    cursor: none;
+  }
 }
 
 /* Scrollbar minimalista */

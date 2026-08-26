@@ -7,14 +7,24 @@ import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 50);
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 200) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+      lastScrollY = currentScrollY;
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -30,9 +40,9 @@ export default function Navbar() {
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      animate={{ y: hidden ? -100 : 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
         scrolled ? "bg-[#141210]/80 backdrop-blur-md border-b border-white/10 py-4" : "bg-transparent py-6"
       }`}
     >

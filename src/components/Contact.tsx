@@ -2,8 +2,25 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useRef, useState } from "react";
 
 export default function Contact() {
+  const buttonRef = useRef<HTMLAnchorElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!buttonRef.current) return;
+    const { clientX, clientY } = e;
+    const { width, height, left, top } = buttonRef.current.getBoundingClientRect();
+    const x = (clientX - (left + width / 2)) * 0.2; // Adjust magnet strength
+    const y = (clientY - (top + height / 2)) * 0.2;
+    setPosition({ x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
   return (
     <section className="w-full relative bg-[#141210] text-white overflow-hidden pt-32 pb-12 px-6 md:px-20 border-t border-white/10">
       
@@ -29,12 +46,13 @@ export default function Contact() {
           </motion.div>
 
           <motion.a 
+            ref={buttonRef}
             href="mailto:castillorod.n@gmail.com"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="group relative flex items-center gap-6 bg-white text-black px-8 py-5 rounded-full text-xl md:text-3xl font-medium hover:bg-transparent hover:text-white border-2 border-white transition-all duration-300"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            animate={{ x: position.x, y: position.y }}
+            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+            className="group relative flex items-center gap-6 bg-white text-black px-8 py-5 rounded-full text-xl md:text-3xl font-medium hover:bg-transparent hover:text-white border-2 border-white transition-colors duration-300 cursor-none"
           >
             <span>castillorod.n@gmail.com</span>
             <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
