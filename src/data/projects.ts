@@ -29,6 +29,7 @@ export const PROJECTS = [
     description: "Herramienta optimizadora, creadora y editora de prompts. Maximiza la calidad de las interacciones con LLMs mediante ingeniería de prompts avanzada.",
     color: "#8b5cf6", // Purple (AI)
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Anthropic Claude API", "Framer Motion"],
+    liveUrl: "https://aevni.website/",
     video: "/media/aevni-optimizar.webm",
     poster: "/media/aevni-optimizar-poster.webp",
     image: "/media/aevni.webp",

@@ -54,6 +54,22 @@ export default async function ProjectPage({ params }: { params: { slug: string }
             {project.fullDescription}
           </p>
 
+          {/* @ts-ignore */}
+          {project.liveUrl && (
+            <div className="mt-8">
+              <a 
+                // @ts-ignore
+                href={project.liveUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-white text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-transparent hover:text-white border border-white transition-colors cursor-none"
+              >
+                Visitar Sitio Web
+                <ArrowLeft className="w-4 h-4 rotate-135" style={{ transform: 'rotate(135deg)' }} />
+              </a>
+            </div>
+          )}
+
           {project.techStack && (
             <div className="mt-12 flex flex-wrap gap-3">
               {project.techStack.map((tech, i) => (
