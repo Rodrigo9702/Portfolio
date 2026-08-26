@@ -148,18 +148,20 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 cursor-pointer"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 cursor-pointer group"
           onClick={() => {
             const aboutSection = document.getElementById("about");
             aboutSection?.scrollIntoView({ behavior: "smooth" });
           }}
         >
-          <span className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-bold">Explorar</span>
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2 relative overflow-hidden group-hover:border-white/60 transition-colors">
+          <span className="text-white/40 text-[10px] tracking-[0.2em] uppercase font-bold group-hover:text-white/80 transition-colors">
+            Desliza para explorar
+          </span>
+          <div className="w-[1px] h-16 bg-white/10 relative overflow-hidden">
             <motion.div 
-              className="w-1 h-2 bg-white rounded-full"
-              animate={{ y: [0, 12, 0], opacity: [1, 0.5, 1] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              className="absolute top-0 left-0 w-full h-1/3 bg-white"
+              animate={{ y: [-20, 64], opacity: [0, 1, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             />
           </div>
         </motion.div>

@@ -123,7 +123,7 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
 
 export default function Skills() {
   return (
-    <section className="w-full py-32 px-6 md:px-20 bg-[#141210] text-white border-t border-white/5" style={{ perspective: "1000px" }}>
+    <section className="w-full py-32 px-6 md:px-20 bg-[#1f1b18] text-white border-t border-white/5" style={{ perspective: "1000px" }}>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-sm uppercase tracking-widest text-white/50 mb-16 text-center">Habilidades Técnicas</h2>
         

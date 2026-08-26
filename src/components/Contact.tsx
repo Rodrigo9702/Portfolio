@@ -22,7 +22,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="w-full relative bg-[#141210] text-white overflow-hidden pt-32 pb-12 px-6 md:px-20 border-t border-white/10">
+    <section className="w-full relative bg-[#1f1b18] text-white overflow-hidden pt-32 pb-12 px-6 md:px-20 border-t border-white/10">
       
       {/* Background decoration */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-white/[0.02] rounded-full blur-3xl pointer-events-none -translate-y-1/2" />

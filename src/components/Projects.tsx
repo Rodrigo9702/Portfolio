@@ -19,7 +19,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <section className="relative w-full py-32 px-6 md:px-20 bg-[#141210] text-white">
+    <section className="relative w-full py-32 px-6 md:px-20 bg-[#1f1b18] text-white">
       {/* Sleek Floating Image Placeholder */}
       <motion.div
         className="fixed top-0 left-0 w-[400px] h-[250px] pointer-events-none z-40 hidden md:flex items-center justify-center border border-white/20 bg-black/40 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl"

@@ -17,7 +17,7 @@ El portafolio está construido utilizando un stack moderno y escalable, prioriza
 
 ## Características Principales
 
-- **Diseño Ultra-Premium y Minimalista**: Inspirado en tendencias de diseño de vanguardia, con fondos oscuros orgánicos (`#141210`), tipografías enormes y contrastes limpios.
+- **Diseño Ultra-Premium y Minimalista**: Inspirado en tendencias de diseño de vanguardia, con fondos oscuros orgánicos (`#1f1b18`), tipografías enormes y contrastes limpios.
 - **Esfera 3D Interactiva**: El componente principal de bienvenida renderiza una esfera construida con `IcosahedronGeometry` que "respira" mediante deformación de vértices con ruido de perlin y reacciona al movimiento del cursor del usuario.
 - **Cursor Magnético Personalizado**: Reemplazo total del cursor estándar del navegador por una versión dinámica que se acopla magnéticamente a los elementos interactivos.
 - **Animaciones al Hacer Scroll**: Los elementos de la interfaz aparecen gradualmente mientras se navega, gracias a interceptores de visibilidad en el viewport.

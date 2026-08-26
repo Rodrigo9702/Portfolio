@@ -32,7 +32,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   }
 
   return (
-    <main className="min-h-screen bg-[#141210] text-white">
+    <main className="min-h-screen bg-[#1f1b18] text-white">
       <div className="max-w-7xl mx-auto px-6 md:px-20 py-32">
         
         <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-16 uppercase tracking-widest text-sm">

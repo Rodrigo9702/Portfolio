@@ -7,7 +7,7 @@ import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#141210]">
+    <main className="flex min-h-screen flex-col bg-[#1f1b18]">
       <div id="home"><Hero /></div>
       <div id="about"><About /></div>
       <div id="experience"><Experience /></div>

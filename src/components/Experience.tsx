@@ -116,7 +116,7 @@ export default function Experience() {
   }, []);
 
   return (
-    <section className="relative w-full py-32 px-6 md:px-20 bg-[#141210] text-white">
+    <section className="relative w-full py-32 px-6 md:px-20 bg-[#1f1b18] text-white">
       
       {/* Floating Certificate Preview */}
       <motion.div
