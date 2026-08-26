@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
+import ProjectGallery from "@/components/ProjectGallery";
 
 export function generateStaticParams() {
   return PROJECTS.map((project) => ({
@@ -83,37 +84,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
 
         <div className="w-full h-[1px] bg-white/10 mb-20" />
 
-        <section className="flex flex-col gap-24">
-          {project.gallery.map((item, idx) => (
-            <div key={idx} className="flex flex-col gap-6">
-              <div className="w-full rounded-2xl overflow-hidden bg-[#111] border border-white/10 shadow-2xl">
-                {item.type === 'video' ? (
-                  <video 
-                    src={item.src} 
-                    poster={item.poster}
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className="w-full h-auto object-cover"
-                  />
-                ) : (
-                  <img 
-                    src={item.src} 
-                    alt={item.caption}
-                    className="w-full h-auto object-cover"
-                  />
-                )}
-              </div>
-              <div className="flex items-start gap-4 px-4">
-                <span className="text-sm font-mono text-white/30 mt-1">0{idx + 1}</span>
-                <p className="text-lg text-white/70 font-light max-w-2xl">
-                  {item.caption}
-                </p>
-              </div>
-            </div>
-          ))}
-        </section>
+        <ProjectGallery gallery={project.gallery} />
 
         <footer className="mt-32 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-white/50 text-sm uppercase tracking-widest">

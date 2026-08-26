@@ -11,20 +11,40 @@ export default function About() {
   return (
     <section className="relative w-full py-32 px-6 md:px-20 bg-[#141210]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 items-start">
-        <motion.div 
-          className="md:w-1/3"
-          ref={ref}
-          initial={{ opacity: 0, x: -50 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
-            Diseñando<br />el Futuro<br />
-            <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">
-              Conversacional
+        <div className="md:w-1/3" ref={ref}>
+          <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight flex flex-col gap-2">
+            <span className="overflow-hidden block">
+              <motion.span 
+                className="block"
+                initial={{ y: "100%", opacity: 0 }}
+                animate={isInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1], delay: 0.1 }}
+              >
+                Diseñando
+              </motion.span>
+            </span>
+            <span className="overflow-hidden block">
+              <motion.span 
+                className="block"
+                initial={{ y: "100%", opacity: 0 }}
+                animate={isInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1], delay: 0.2 }}
+              >
+                el Futuro
+              </motion.span>
+            </span>
+            <span className="overflow-hidden block">
+              <motion.span 
+                className="block font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40"
+                initial={{ y: "100%", opacity: 0 }}
+                animate={isInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1], delay: 0.3 }}
+              >
+                Conversacional
+              </motion.span>
             </span>
           </h2>
-        </motion.div>
+        </div>
 
         <motion.div 
           className="md:w-2/3 space-y-8 text-white/70 text-lg md:text-2xl font-light leading-relaxed"
