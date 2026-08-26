@@ -37,7 +37,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-sm uppercase tracking-[0.3em] text-white/50 mb-6 max-w-2xl mx-auto">
+            <h2 className="text-sm uppercase tracking-[0.3em] text-white/70 mb-6 max-w-2xl mx-auto">
               Si buscas a alguien para escalar tus proyectos o resolver problemas complejos...
             </h2>
             <h1 className="text-5xl md:text-[7vw] font-bold tracking-tighter leading-none mb-12">
@@ -62,7 +62,7 @@ export default function Contact() {
         </div>
 
         {/* Footer info grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 pt-12 border-t border-white/10 text-sm uppercase tracking-widest text-white/50">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 pt-12 border-t border-white/10 text-sm uppercase tracking-widest text-white/70">
           
           <div className="flex flex-col gap-4">
             <span className="text-white/30">Ubicación</span>

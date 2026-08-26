@@ -47,7 +47,7 @@ export default function About() {
         </div>
 
         <motion.div 
-          className="md:w-2/3 space-y-8 text-white/70 text-lg md:text-2xl font-light leading-relaxed"
+          className="md:w-2/3 space-y-8 text-white/90 text-lg md:text-2xl font-light leading-relaxed"
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -64,15 +64,15 @@ export default function About() {
           <div className="pt-8 flex flex-col md:flex-row gap-8 border-t border-white/10 mt-8">
             <div>
               <span className="block text-4xl text-white font-bold mb-2">01.</span>
-              <span className="text-sm uppercase tracking-widest text-white/50">AI & Agentic Workflows</span>
+              <span className="text-sm uppercase tracking-widest text-white/70">AI & Agentic Workflows</span>
             </div>
             <div>
               <span className="block text-4xl text-white font-bold mb-2">02.</span>
-              <span className="text-sm uppercase tracking-widest text-white/50">Fullstack & Integraciones</span>
+              <span className="text-sm uppercase tracking-widest text-white/70">Fullstack & Integraciones</span>
             </div>
             <div>
               <span className="block text-4xl text-white font-bold mb-2">03.</span>
-              <span className="text-sm uppercase tracking-widest text-white/50">QA Automation</span>
+              <span className="text-sm uppercase tracking-widest text-white/70">QA Automation</span>
             </div>
           </div>
         </motion.div>

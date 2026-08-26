@@ -58,7 +58,7 @@ export default function Projects() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-          <h2 className="text-sm uppercase tracking-widest text-white/50">Selected Works</h2>
+          <h2 className="text-sm uppercase tracking-widest text-white/70">Selected Works</h2>
           <p className="text-xs text-white/30 font-mono max-w-sm md:text-right">
             * Disclaimer: Las muestras y capturas exhibidas en los proyectos son de carácter ilustrativo y no contienen datos reales.
           </p>
@@ -83,7 +83,7 @@ export default function Projects() {
 
                 <div className="mt-6 md:mt-0 flex flex-row items-center justify-between md:justify-end gap-8 z-10 pointer-events-none w-full md:w-auto">
                   <div className="flex flex-col items-start md:items-end gap-2 mix-blend-difference">
-                    <div className="flex items-center gap-4 text-sm text-white/60">
+                    <div className="flex items-center gap-4 text-sm text-white/80">
                       <span className="uppercase tracking-widest">{project.category}</span>
                       <span className="w-1 h-1 rounded-full bg-white/30"></span>
                       <span>{project.year}</span>
@@ -96,11 +96,11 @@ export default function Projects() {
                       }}
                       transition={{ duration: 0.4 }}
                     >
-                      <p className="max-w-[280px] text-right text-white/50 text-sm mt-4">
+                      <p className="max-w-[280px] text-right text-white/70 text-sm mt-4">
                         {project.description}
                       </p>
                     </motion.div>
-                    <div className="mt-4 md:hidden text-white/50 text-sm">
+                    <div className="mt-4 md:hidden text-white/70 text-sm">
                       {project.description}
                     </div>
                   </div>

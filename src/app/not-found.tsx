@@ -13,7 +13,7 @@ export default function NotFound() {
           404
         </h1>
         
-        <p className="mt-8 text-white/50 text-xl font-light max-w-md">
+        <p className="mt-8 text-white/70 text-xl font-light max-w-md">
           El enlace al que intentaste acceder no existe o fue movido.
         </p>
 

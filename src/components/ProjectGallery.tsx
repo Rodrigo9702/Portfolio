@@ -53,7 +53,7 @@ function GalleryImage({ item, idx }: { item: GalleryItem; idx: number }) {
       </div>
       <div className="flex items-start gap-4 px-4">
         <span className="text-sm font-mono text-white/30 mt-1">0{idx + 1}</span>
-        <p className="text-lg text-white/70 font-light max-w-2xl">
+        <p className="text-lg text-white/90 font-light max-w-2xl">
           {item.caption}
         </p>
       </div>

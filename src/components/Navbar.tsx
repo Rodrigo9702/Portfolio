@@ -57,7 +57,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-white/60 hover:text-white text-xs uppercase tracking-widest transition-colors "
+                className="text-white/80 hover:text-white text-xs uppercase tracking-widest transition-colors "
               >
                 {link.name}
               </a>

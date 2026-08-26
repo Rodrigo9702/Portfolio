@@ -121,7 +121,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-white/60 tracking-[0.2em] text-sm uppercase mb-6"
+          className="text-white/80 tracking-[0.2em] text-sm uppercase mb-6"
         >
           Rodrigo Castillo
         </motion.p>
@@ -139,7 +139,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-8 text-white/50 max-w-xl mx-auto text-lg md:text-xl font-light"
+          className="mt-8 text-white/70 max-w-xl mx-auto text-lg md:text-xl font-light"
         >
           Especialista en soluciones conversacionales avanzadas, integrando modelos de lenguaje (LLMs) y arquitecturas robustas de software.
         </motion.p>
@@ -154,7 +154,7 @@ export default function Hero() {
             aboutSection?.scrollIntoView({ behavior: "smooth" });
           }}
         >
-          <span className="text-white/40 text-[10px] tracking-[0.2em] uppercase font-bold group-hover:text-white/80 transition-colors">
+          <span className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-bold group-hover:text-white/80 transition-colors">
             Desliza para explorar
           </span>
           <div className="w-[1px] h-16 bg-white/10 relative overflow-hidden">

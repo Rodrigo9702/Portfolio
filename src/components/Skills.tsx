@@ -104,7 +104,7 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
       <h3 className="text-xl font-light mb-6 text-white transform-gpu" style={{ transform: "translateZ(20px)" }}>{cat.title}</h3>
       <ul className="flex flex-col gap-3 transform-gpu" style={{ transform: "translateZ(10px)" }}>
         {cat.skills.map((skill: any, j: number) => (
-          <li key={j} className="group/item text-white/70 text-sm font-mono flex items-center gap-3 hover:text-white transition-colors cursor-default">
+          <li key={j} className="group/item text-white/90 text-sm font-mono flex items-center gap-3 hover:text-white transition-colors cursor-default">
             <span 
               className="w-6 h-6 flex items-center justify-center bg-[#111] rounded-md border border-white/5 shadow-sm group-hover/item:border-white/20 transition-all duration-300"
             >
@@ -125,7 +125,7 @@ export default function Skills() {
   return (
     <section className="w-full py-32 px-6 md:px-20 bg-[#1f1b18] text-white border-t border-white/5" style={{ perspective: "1000px" }}>
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-sm uppercase tracking-widest text-white/50 mb-16 text-center">Habilidades Técnicas</h2>
+        <h2 className="text-sm uppercase tracking-widest text-white/70 mb-16 text-center">Habilidades Técnicas</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {SKILL_CATEGORIES.map((cat, i) => (

@@ -139,13 +139,13 @@ export default function Experience() {
           />
         ) : (
           <div className="z-10 text-center px-4 flex flex-col items-center">
-            <span className="text-white/40 text-xs uppercase tracking-widest mb-2">Credential Preview</span>
+            <span className="text-white/60 text-xs uppercase tracking-widest mb-2">Credential Preview</span>
             {hoveredCert !== null && (
                <span className="text-white font-medium text-sm">
                   {CERTIFICATIONS[hoveredCert].issuer}
                </span>
             )}
-            <ArrowUpRight className="w-8 h-8 text-white/50 mt-4" />
+            <ArrowUpRight className="w-8 h-8 text-white/70 mt-4" />
           </div>
         )}
       </motion.div>
@@ -154,7 +154,7 @@ export default function Experience() {
         
         {/* Experience Column */}
         <div className="flex-1">
-          <h2 className="text-sm uppercase tracking-widest text-white/50 mb-12">Experiencia Laboral</h2>
+          <h2 className="text-sm uppercase tracking-widest text-white/70 mb-12">Experiencia Laboral</h2>
           <div className="flex flex-col gap-12">
             {EXPERIENCE.map((exp, i) => (
               <motion.div 
@@ -169,12 +169,12 @@ export default function Experience() {
                   <h3 className="text-2xl md:text-3xl font-light text-white group-hover:text-white/80 transition-colors">
                     {exp.role}
                   </h3>
-                  <span className="text-sm text-white/50 font-mono mt-2 md:mt-0">{exp.date}</span>
+                  <span className="text-sm text-white/70 font-mono mt-2 md:mt-0">{exp.date}</span>
                 </div>
-                <h4 className="text-lg text-white/70 mb-4">{exp.company}</h4>
+                <h4 className="text-lg text-white/90 mb-4">{exp.company}</h4>
                 <ul className="space-y-2">
                   {exp.desc.map((item, j) => (
-                    <li key={j} className="text-white/40 text-sm font-light flex items-start gap-3">
+                    <li key={j} className="text-white/60 text-sm font-light flex items-start gap-3">
                       <span className="text-white/20 mt-1">▹</span> {item}
                     </li>
                   ))}
@@ -187,7 +187,7 @@ export default function Experience() {
         {/* Education & Certs Column */}
         <div className="flex-1 flex flex-col gap-20">
           <div>
-            <h2 className="text-sm uppercase tracking-widest text-white/50 mb-12">Educación</h2>
+            <h2 className="text-sm uppercase tracking-widest text-white/70 mb-12">Educación</h2>
             <div className="flex flex-col gap-12">
               {EDUCATION.map((edu, i) => (
                 <motion.div 
@@ -201,16 +201,16 @@ export default function Experience() {
                     <h3 className="text-2xl md:text-3xl font-light text-white">
                       {edu.degree}
                     </h3>
-                    <span className="text-sm text-white/50 font-mono mt-2">{edu.date}</span>
+                    <span className="text-sm text-white/70 font-mono mt-2">{edu.date}</span>
                   </div>
-                  <h4 className="text-lg text-white/70">{edu.institution}</h4>
+                  <h4 className="text-lg text-white/90">{edu.institution}</h4>
                 </motion.div>
               ))}
             </div>
           </div>
 
           <div>
-            <h2 className="text-sm uppercase tracking-widest text-white/50 mb-12">Certificaciones Destacadas</h2>
+            <h2 className="text-sm uppercase tracking-widest text-white/70 mb-12">Certificaciones Destacadas</h2>
             <div className="flex flex-col gap-2">
               {CERTIFICATIONS.map((cert, i) => (
                 <a
@@ -231,7 +231,7 @@ export default function Experience() {
                     <h3 className="text-xl md:text-2xl font-light text-white mb-2 group-hover:translate-x-2 transition-transform duration-300">
                       {cert.title}
                     </h3>
-                    <h4 className="text-sm text-white/50 font-mono">{cert.issuer}</h4>
+                    <h4 className="text-sm text-white/70 font-mono">{cert.issuer}</h4>
                   </motion.div>
                 </a>
               ))}

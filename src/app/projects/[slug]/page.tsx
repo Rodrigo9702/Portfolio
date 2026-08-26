@@ -35,13 +35,13 @@ export default async function ProjectPage({ params }: { params: { slug: string }
     <main className="min-h-screen bg-[#1f1b18] text-white">
       <div className="max-w-7xl mx-auto px-6 md:px-20 py-32">
         
-        <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-16 uppercase tracking-widest text-sm">
+        <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-16 uppercase tracking-widest text-sm">
           <ArrowLeft className="w-4 h-4" />
           Volver al Inicio
         </Link>
 
         <header className="mb-20">
-          <div className="flex items-center gap-4 text-sm text-white/60 mb-6 font-mono">
+          <div className="flex items-center gap-4 text-sm text-white/80 mb-6 font-mono">
             <span className="uppercase tracking-widest">{project.category}</span>
             <span className="w-1 h-1 rounded-full bg-white/30"></span>
             <span>{project.year}</span>
@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
             {project.title}
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/70 max-w-3xl font-light leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/90 max-w-3xl font-light leading-relaxed">
             {project.fullDescription}
           </p>
 
@@ -74,7 +74,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
           {project.techStack && (
             <div className="mt-12 flex flex-wrap gap-3">
               {project.techStack.map((tech, i) => (
-                <span key={i} className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-white/70">
+                <span key={i} className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-white/90">
                   {tech}
                 </span>
               ))}
@@ -87,7 +87,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
         <ProjectGallery gallery={project.gallery} />
 
         <footer className="mt-32 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-white/50 text-sm uppercase tracking-widest">
+          <div className="text-white/70 text-sm uppercase tracking-widest">
             Proyecto / {project.title}
           </div>
           <Link href="/" className="px-8 py-4 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all">
