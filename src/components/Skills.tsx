@@ -3,22 +3,53 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { MouseEvent } from "react";
 
+import { 
+  SiN8N, SiJavascript, SiPython, SiNodedotjs, SiC, SiHtml5, SiCss, SiReact, 
+  SiNextdotjs, SiGooglecloud, SiMongodb, SiGit
+} from "react-icons/si";
+import { FaRobot, FaNetworkWired, FaProjectDiagram, FaKeyboard, FaBrain, FaVial, FaDatabase, FaAws, FaGoogle, FaCubes } from "react-icons/fa";
+
 const SKILL_CATEGORIES = [
   {
     title: "IA & Agentic Solutions",
-    skills: ["LangChain", "n8n", "Model Context Protocol (MCP)", "Agentic Workflows", "Prompt Engineering"]
+    skills: [
+      { name: "LangChain", icon: FaRobot },
+      { name: "n8n", icon: SiN8N },
+      { name: "Model Context Protocol (MCP)", icon: FaNetworkWired },
+      { name: "Agentic Workflows", icon: FaProjectDiagram },
+      { name: "Prompt Engineering", icon: FaKeyboard }
+    ]
   },
   {
     title: "LLMs & APIs",
-    skills: ["OpenAI", "Anthropic", "Gemini", "LLaMA"]
+    skills: [
+      { name: "OpenAI", icon: FaRobot },
+      { name: "Anthropic", icon: FaBrain },
+      { name: "Gemini", icon: FaGoogle },
+      { name: "LLaMA", icon: FaCubes }
+    ]
   },
   {
     title: "Software & Web Dev",
-    skills: ["JavaScript", "Python", "Node.js", "C", "HTML", "CSS", "React/Next.js"]
+    skills: [
+      { name: "JavaScript", icon: SiJavascript },
+      { name: "Python", icon: SiPython },
+      { name: "Node.js", icon: SiNodedotjs },
+      { name: "C", icon: SiC },
+      { name: "HTML / CSS", icon: SiHtml5 },
+      { name: "React / Next.js", icon: SiReact }
+    ]
   },
   {
     title: "QA & Cloud",
-    skills: ["Tricentis Tosca (AS1, AS2)", "AWS", "Google Cloud", "MongoDB", "SQL", "Git"]
+    skills: [
+      { name: "Tricentis Tosca", icon: FaVial },
+      { name: "AWS", icon: FaAws },
+      { name: "Google Cloud", icon: SiGooglecloud },
+      { name: "MongoDB", icon: SiMongodb },
+      { name: "SQL", icon: FaDatabase },
+      { name: "Git", icon: SiGit }
+    ]
   }
 ];
 
@@ -67,10 +98,12 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
       <h3 className="text-xl font-light mb-6 text-white transform-gpu" style={{ transform: "translateZ(20px)" }}>{cat.title}</h3>
       <ul className="flex flex-col gap-3 transform-gpu" style={{ transform: "translateZ(10px)" }}>
-        {cat.skills.map((skill: string, j: number) => (
-          <li key={j} className="text-white/50 text-sm font-mono flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-white/20 rounded-full" />
-            {skill}
+        {cat.skills.map((skill: any, j: number) => (
+          <li key={j} className="text-white/70 text-sm font-mono flex items-center gap-3">
+            <span className="w-5 h-5 flex items-center justify-center bg-white/5 rounded-md border border-white/10 text-white/50 group-hover:text-white/90 group-hover:bg-white/10 transition-colors">
+              <skill.icon className="w-3 h-3" />
+            </span>
+            {skill.name}
           </li>
         ))}
       </ul>

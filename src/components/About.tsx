@@ -53,10 +53,13 @@ export default function About() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <p>
-            Soy AI Agent Developer Ssr. enfocado en crear, implementar y optimizar soluciones conversacionales basadas en Inteligencia Artificial. Combino mi experiencia en desarrollo con JavaScript, Python y Node.js con mi mentalidad analítica de QA Automation para construir sistemas escalables y libres de errores.
+            Soy AI Agent Developer Ssr. enfocado en crear, implementar y optimizar soluciones conversacionales basadas en Inteligencia Artificial. Combino mi experiencia en desarrollo de software (JavaScript, Python, Node.js) con una fuerte mentalidad analítica proveniente de mi background en QA Automation para construir sistemas escalables, robustos y libres de errores.
           </p>
           <p>
-            Mi especialidad radica en orquestar Agentic Workflows, automatizar procesos con LangChain, n8n y conectar LLMs a herramientas corporativas mediante MCP de manera segura y eficiente.
+            Mi especialidad radica en diseñar arquitecturas complejas de intenciones, orquestar Agentic Workflows, automatizar procesos con LangChain, n8n y conectar LLMs a herramientas corporativas mediante MCP (Model Context Protocol) de manera segura y eficiente.
+          </p>
+          <p>
+            Estudiante de 3º año de Ingeniería en Informática y apasionado por el ecosistema tecnológico. Disfruto trabajar codo a codo con equipos de Producto y Negocio bajo metodologías ágiles, aportando pensamiento analítico, resolución rápida de problemas y un aprendizaje autónomo constante para transformar necesidades reales en agentes virtuales inteligentes.
           </p>
           <div className="pt-8 flex flex-col md:flex-row gap-8 border-t border-white/10 mt-8">
             <div>
