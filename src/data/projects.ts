@@ -3,7 +3,7 @@ export const PROJECTS = [
     slug: "epifron",
     title: "Epifron",
     category: "Software",
-    year: "2024",
+    year: "2026",
     description: "Plataforma de seguimiento de finanzas y gastos personales. Diseñada para ofrecer insights detallados y mantener un control total de la economía personal mediante interacciones conversacionales con IA.",
     color: "#10b981", // Emerald Green (Finances)
     video: "/media/epifron-chat.webm",
@@ -24,7 +24,7 @@ export const PROJECTS = [
     slug: "aevni",
     title: "AEVNI",
     category: "AI Tool",
-    year: "2024",
+    year: "2026",
     description: "Herramienta optimizadora, creadora y editora de prompts. Maximiza la calidad de las interacciones con LLMs mediante ingeniería de prompts avanzada.",
     color: "#8b5cf6", // Purple (AI)
     video: "/media/aevni-optimizar.webm",
@@ -44,7 +44,7 @@ export const PROJECTS = [
     slug: "career-tracker",
     title: "Carrer Tracker",
     category: "Productivity",
-    year: "2024",
+    year: "2026",
     description: "Sistema para el seguimiento del avance académico y profesional. Gestiona notas, cronogramas y progreso de la cursada universitaria en tiempo real.",
     color: "#ff6b00", // Bright Orange
     video: "/media/career-tour.webm",
