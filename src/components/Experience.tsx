@@ -44,44 +44,62 @@ const EDUCATION = [
 
 const CERTIFICATIONS = [
   {
-    title: "LangChain Academy",
+    title: "Foundation: Introduction to Deep Agents",
     issuer: "LangChain",
-    url: "https://academy.langchain.com/certificates/y9essigl5u"
+    url: "https://academy.langchain.com/certificates/y9essigl5u",
+    localImage: "/media/certs/LangChain.jpg"
   },
   {
-    title: "Anthropic Claude (Credential 1)",
-    issuer: "Anthropic / Skilljar",
+    title: "Claude 101",
+    issuer: "Anthropic",
     url: "https://verify.skilljar.com/c/zw6u3mvun8s9"
   },
   {
-    title: "Anthropic Claude (Credential 2)",
-    issuer: "Anthropic / Skilljar",
+    title: "AI Fluency: Framework & Foundations",
+    issuer: "Anthropic",
     url: "https://verify.skilljar.com/c/xcudfesa58at"
-  },
-  {
-    title: "n8n Course Level 1",
-    issuer: "n8n",
-    url: "#"
   },
   {
     title: "n8n Course Level 2",
     issuer: "n8n",
-    url: "#"
+    url: "#",
+    localImage: "/media/certs/n8n_lvl2.jpg"
   },
   {
-    title: "Tricentis Tosca Automation Specialist (AS1)",
+    title: "n8n Course Level 1",
+    issuer: "n8n",
+    url: "#",
+    localImage: "/media/certs/n8n_lvl1.jpg"
+  },
+  {
+    title: "Gestión de Proyectos y Fundamentos de metodología Agile",
+    issuer: "Santander Open Academy",
+    url: "#",
+    localImage: "/media/certs/scrum_santander.jpg"
+  },
+  {
+    title: "Programación orientada a objetos con IA",
+    issuer: "EducacionIT",
+    url: "https://www.educacionit.com/perfil/rodrigo-castillo-1099958/certificado/81291?_gl",
+    localImage: "/media/certs/educacion_it.png"
+  },
+  {
+    title: "Tricentis Tosca Fundamentals − Optimizing test data (AS2)",
     issuer: "Tricentis",
-    url: "https://academy.tricentis.com/share/gamification/badges/external/db97fd29-0266-4c85-a6a0-568022362ec1?lang=en"
+    url: "https://academy.tricentis.com/share/v1/gamification/assigned_badge/db97fd29-0266-4c85-a6a0-568022362ec1/shared?lang=en",
+    localImage: "/media/certs/Tricentis_AS2.png"
   },
   {
-    title: "Tricentis Tosca Automation Specialist (AS2)",
+    title: "Tricentis Tosca Fundamentals − Automating web testing (AS1)",
     issuer: "Tricentis",
-    url: "https://academy.tricentis.com/share/gamification/badges/external/2fd69330-f69c-4aa4-8398-3fd6eb1c33ff?lang=en"
+    url: "https://academy.tricentis.com/share/v1/gamification/assigned_badge/2fd69330-f69c-4aa4-8398-3fd6eb1c33ff/shared?lang=en",
+    localImage: "/media/certs/Tricentis_AS1.png"
   },
   {
-    title: "Diplomatura en Desarrollo Fullstack",
-    issuer: "Educación IT",
-    url: "https://www.educacionit.com/perfil/rodrigo-castillo-1099958/certificado/81291?_gl"
+    title: "Deep Learning",
+    issuer: "CACIC",
+    url: "#",
+    localImage: "/media/certs/cacic.jpg"
   }
 ];
 
@@ -113,9 +131,9 @@ export default function Experience() {
       >
         <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-0" />
         
-        {hoveredCert !== null && CERTIFICATIONS[hoveredCert].url !== "#" ? (
+        {hoveredCert !== null && (CERTIFICATIONS[hoveredCert].localImage || CERTIFICATIONS[hoveredCert].url !== "#") ? (
           <img 
-            src={`https://api.microlink.io/?url=${encodeURIComponent(CERTIFICATIONS[hoveredCert].url)}&screenshot=true&meta=false&embed=screenshot.url`}
+            src={CERTIFICATIONS[hoveredCert].localImage || `https://api.microlink.io/?url=${encodeURIComponent(CERTIFICATIONS[hoveredCert].url)}&screenshot=true&meta=false&embed=screenshot.url`}
             alt="Certificate Preview"
             className="absolute inset-0 w-full h-full object-cover opacity-90 z-10"
           />
