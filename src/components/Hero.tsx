@@ -43,7 +43,7 @@ export default function Hero() {
     // Save original positions for animation
     const positionAttribute = geometry.attributes.position;
     const vertex = new THREE.Vector3();
-    const originalPositions = [];
+    const originalPositions: THREE.Vector3[] = [];
     for (let i = 0; i < positionAttribute.count; i++) {
       vertex.fromBufferAttribute(positionAttribute, i);
       originalPositions.push(vertex.clone());
