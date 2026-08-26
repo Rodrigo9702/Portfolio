@@ -7,48 +7,53 @@ import {
   SiN8N, SiJavascript, SiPython, SiNodedotjs, SiC, SiHtml5, SiCss, SiReact, 
   SiNextdotjs, SiGooglecloud, SiMongodb, SiGit
 } from "react-icons/si";
-import { FaRobot, FaNetworkWired, FaProjectDiagram, FaKeyboard, FaBrain, FaVial, FaDatabase, FaAws, FaGoogle, FaCubes } from "react-icons/fa";
+import { FaRobot, FaNetworkWired, FaProjectDiagram, FaKeyboard, FaBrain, FaVial, FaDatabase, FaAws, FaGoogle, FaCubes, FaSearch, FaUserCheck, FaShieldAlt, FaSlidersH, FaTools } from "react-icons/fa";
 
 const SKILL_CATEGORIES = [
   {
     title: "IA & Agentic Solutions",
     skills: [
-      { name: "LangChain", icon: FaRobot },
-      { name: "n8n", icon: SiN8N },
-      { name: "Model Context Protocol (MCP)", icon: FaNetworkWired },
-      { name: "Agentic Workflows", icon: FaProjectDiagram },
-      { name: "Prompt Engineering", icon: FaKeyboard }
+      { name: "LangChain", icon: FaRobot, color: "#1c3c3c" },
+      { name: "n8n", icon: SiN8N, color: "#ff6d5a" },
+      { name: "Model Context Protocol (MCP)", icon: FaNetworkWired, color: "#4f46e5" },
+      { name: "Agentic Workflows", icon: FaProjectDiagram, color: "#10b981" },
+      { name: "Prompt Engineering", icon: FaKeyboard, color: "#f59e0b" },
+      { name: "RAG", icon: FaSearch, color: "#3b82f6" },
+      { name: "Human-in-the-Loop (HITL)", icon: FaUserCheck, color: "#8b5cf6" },
+      { name: "AI Governance", icon: FaShieldAlt, color: "#ef4444" },
+      { name: "Fine-Tuning", icon: FaSlidersH, color: "#06b6d4" },
+      { name: "Tools & Skills", icon: FaTools, color: "#f97316" }
     ]
   },
   {
     title: "LLMs & APIs",
     skills: [
-      { name: "OpenAI", icon: FaRobot },
-      { name: "Anthropic", icon: FaBrain },
-      { name: "Gemini", icon: FaGoogle },
-      { name: "LLaMA", icon: FaCubes }
+      { name: "OpenAI", icon: FaRobot, color: "#10a37f" },
+      { name: "Anthropic", icon: FaBrain, color: "#d97757" },
+      { name: "Gemini", icon: FaGoogle, color: "#4285f4" },
+      { name: "LLaMA", icon: FaCubes, color: "#0668e1" }
     ]
   },
   {
     title: "Software & Web Dev",
     skills: [
-      { name: "JavaScript", icon: SiJavascript },
-      { name: "Python", icon: SiPython },
-      { name: "Node.js", icon: SiNodedotjs },
-      { name: "C", icon: SiC },
-      { name: "HTML / CSS", icon: SiHtml5 },
-      { name: "React / Next.js", icon: SiReact }
+      { name: "JavaScript", icon: SiJavascript, color: "#f7df1e" },
+      { name: "Python", icon: SiPython, color: "#3776ab" },
+      { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+      { name: "C", icon: SiC, color: "#a8b9cc" },
+      { name: "HTML / CSS", icon: SiHtml5, color: "#e34f26" },
+      { name: "React / Next.js", icon: SiReact, color: "#61dafb" }
     ]
   },
   {
     title: "QA & Cloud",
     skills: [
-      { name: "Tricentis Tosca", icon: FaVial },
-      { name: "AWS", icon: FaAws },
-      { name: "Google Cloud", icon: SiGooglecloud },
-      { name: "MongoDB", icon: SiMongodb },
-      { name: "SQL", icon: FaDatabase },
-      { name: "Git", icon: SiGit }
+      { name: "Tricentis Tosca", icon: FaVial, color: "#004b87" },
+      { name: "AWS", icon: FaAws, color: "#ff9900" },
+      { name: "Google Cloud", icon: SiGooglecloud, color: "#4285f4" },
+      { name: "MongoDB", icon: SiMongodb, color: "#47a248" },
+      { name: "SQL", icon: FaDatabase, color: "#00758f" },
+      { name: "Git", icon: SiGit, color: "#f05032" }
     ]
   }
 ];
@@ -99,9 +104,14 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
       <h3 className="text-xl font-light mb-6 text-white transform-gpu" style={{ transform: "translateZ(20px)" }}>{cat.title}</h3>
       <ul className="flex flex-col gap-3 transform-gpu" style={{ transform: "translateZ(10px)" }}>
         {cat.skills.map((skill: any, j: number) => (
-          <li key={j} className="text-white/70 text-sm font-mono flex items-center gap-3">
-            <span className="w-5 h-5 flex items-center justify-center bg-white/5 rounded-md border border-white/10 text-white/50 group-hover:text-white/90 group-hover:bg-white/10 transition-colors">
-              <skill.icon className="w-3 h-3" />
+          <li key={j} className="group/item text-white/70 text-sm font-mono flex items-center gap-3 hover:text-white transition-colors cursor-default">
+            <span 
+              className="w-6 h-6 flex items-center justify-center bg-[#111] rounded-md border border-white/5 shadow-sm group-hover/item:border-white/20 transition-all duration-300"
+            >
+              <skill.icon 
+                className="w-3.5 h-3.5 opacity-80 group-hover/item:opacity-100 transition-opacity duration-300" 
+                style={{ color: skill.color || '#ffffff' }}
+              />
             </span>
             {skill.name}
           </li>
