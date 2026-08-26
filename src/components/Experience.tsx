@@ -220,7 +220,7 @@ export default function Experience() {
                   rel="noopener noreferrer"
                   onMouseEnter={() => setHoveredCert(i)}
                   onMouseLeave={() => setHoveredCert(null)}
-                  className="group block relative z-10 border-l border-white/20 pl-6 py-4 hover:bg-white/[0.02] transition-colors cursor-none"
+                  className="group block relative z-10 border-l border-white/20 pl-6 py-4 hover:bg-white/[0.02] transition-colors "
                 >
                   <motion.div 
                     initial={{ opacity: 0, x: -10 }}

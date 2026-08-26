@@ -57,7 +57,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-white/60 hover:text-white text-xs uppercase tracking-widest transition-colors cursor-none"
+                className="text-white/60 hover:text-white text-xs uppercase tracking-widest transition-colors "
               >
                 {link.name}
               </a>
@@ -70,7 +70,7 @@ export default function Navbar() {
           href="/cv.pdf" 
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs uppercase tracking-widest px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all cursor-none"
+          className="text-xs uppercase tracking-widest px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all "
           onClick={(e) => {
             // Si el archivo no existe aún, evitamos el 404 para el demo
             // e.preventDefault();

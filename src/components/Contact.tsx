@@ -52,7 +52,7 @@ export default function Contact() {
             onMouseLeave={handleMouseLeave}
             animate={{ x: position.x, y: position.y }}
             transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-            className="group relative flex items-center gap-6 bg-white text-black px-8 py-5 rounded-full text-xl md:text-3xl font-medium hover:bg-transparent hover:text-white border-2 border-white transition-colors duration-300 cursor-none"
+            className="group relative flex items-center gap-6 bg-white text-black px-8 py-5 rounded-full text-xl md:text-3xl font-medium hover:bg-transparent hover:text-white border-2 border-white transition-colors duration-300 "
           >
             <span>castillorod.n@gmail.com</span>
             <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">

@@ -63,7 +63,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
                 href={project.liveUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-white text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-transparent hover:text-white border border-white transition-colors cursor-none"
+                className="inline-flex items-center gap-3 bg-white text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-transparent hover:text-white border border-white transition-colors "
               >
                 Visitar Sitio Web
                 <ArrowLeft className="w-4 h-4 rotate-135" style={{ transform: 'rotate(135deg)' }} />
