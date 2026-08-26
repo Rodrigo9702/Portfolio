@@ -1,7 +1,5 @@
 # Rodrigo Castillo - Portfolio
 
-![Portfolio Preview](./public/media/aevni.webp)
-
 Bienvenido al repositorio de mi portafolio profesional interactivo. Este proyecto fue diseñado y desarrollado completamente desde cero, con el objetivo de demostrar mis capacidades en el desarrollo Frontend moderno, la construcción de experiencias de usuario (UX/UI) fluidas, y la integración de animaciones avanzadas y entornos 3D en la web.
 
 Este portafolio sirve como mi carta de presentación, detallando mi experiencia como **AI Agent Developer Ssr** y **QA Automation Jr**, así como mis proyectos más destacados.
