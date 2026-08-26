@@ -54,8 +54,8 @@ export default function Contact() {
           <div className="flex flex-col gap-4 md:items-center">
             <span className="text-white/30">Socials</span>
             <div className="flex gap-6">
-              <a href="https://github.com/Rodrigo9702" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GitHub</a>
-              <a href="https://linkedin.com/in/rodrigoncastillo" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+              <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
+              <a href="https://linkedin.com/in/rodrigoncastillo" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
             </div>
           </div>
 

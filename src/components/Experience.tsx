@@ -217,7 +217,7 @@ export default function Experience() {
                   key={i}
                   href={cert.url}
                   target={cert.url !== "#" ? "_blank" : "_self"}
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   onMouseEnter={() => setHoveredCert(i)}
                   onMouseLeave={() => setHoveredCert(null)}
                   className="group block relative z-10 border-l border-white/20 pl-6 py-4 hover:bg-white/[0.02] transition-colors cursor-none"

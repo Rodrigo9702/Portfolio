@@ -53,8 +53,10 @@ export default function Hero() {
     let mouseY = 0;
     const clock = new THREE.Clock();
 
+    let animationFrameId: number;
+
     const animate = () => {
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
       
       const time = clock.getElapsedTime();
 
@@ -101,6 +103,7 @@ export default function Hero() {
     window.addEventListener('resize', handleResize);
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();

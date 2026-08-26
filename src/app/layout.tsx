@@ -15,21 +15,37 @@ const geistMono = Geist_Mono({
 import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
 import SmoothScroll from "@/components/SmoothScroll";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Rodrigo Castillo | AI Agent Developer",
-  description: "Portafolio de Rodrigo Castillo, AI Agent Developer y QA Automation.",
+  description: "Portafolio de Rodrigo Castillo, AI Agent Developer y QA Automation. Especialista en soluciones conversacionales con LLMs.",
+  keywords: ["AI Agent Developer", "QA Automation", "LangChain", "n8n", "Portfolio", "Rodrigo Castillo", "Anthropic", "OpenAI"],
+  authors: [{ name: "Rodrigo Castillo" }],
+  openGraph: {
+    title: "Rodrigo Castillo | AI Agent Developer",
+    description: "Portafolio de Rodrigo Castillo, AI Agent Developer y QA Automation. Especialista en soluciones conversacionales con LLMs.",
+    url: "https://tu-dominio.com",
+    siteName: "Rodrigo Castillo Portfolio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rodrigo Castillo | AI Agent Developer",
+    description: "Portafolio de Rodrigo Castillo, AI Agent Developer y QA Automation.",
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className="flex flex-col selection:bg-white/30 selection:text-white">
         <CustomCursor />
         <Preloader />
+        <Navbar />
         <SmoothScroll>
           {children}
         </SmoothScroll>

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Portfolio specific
+AGENTS.md
+CLAUDE.md
+Portfolio_demos/
+Certificados/

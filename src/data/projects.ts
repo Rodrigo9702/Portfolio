@@ -6,6 +6,7 @@ export const PROJECTS = [
     year: "2026",
     description: "Plataforma de seguimiento de finanzas y gastos personales. Diseñada para ofrecer insights detallados y mantener un control total de la economía personal mediante interacciones conversacionales con IA.",
     color: "#10b981", // Emerald Green (Finances)
+    techStack: ["React", "Node.js", "Python", "Groq / LLaMA 3.3", "SQLite", "Telegram API"],
     video: "/media/epifron-chat.webm",
     poster: "/media/epifron-chat-poster.webp",
     image: "/media/epifron-dash.webp",
@@ -27,6 +28,7 @@ export const PROJECTS = [
     year: "2026",
     description: "Herramienta optimizadora, creadora y editora de prompts. Maximiza la calidad de las interacciones con LLMs mediante ingeniería de prompts avanzada.",
     color: "#8b5cf6", // Purple (AI)
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Anthropic Claude API", "Framer Motion"],
     video: "/media/aevni-optimizar.webm",
     poster: "/media/aevni-optimizar-poster.webp",
     image: "/media/aevni.webp",
@@ -42,11 +44,12 @@ export const PROJECTS = [
   },
   {
     slug: "career-tracker",
-    title: "Carrer Tracker",
+    title: "Career Tracker",
     category: "Productivity",
     year: "2026",
     description: "Sistema para el seguimiento del avance académico y profesional. Gestiona notas, cronogramas y progreso de la cursada universitaria en tiempo real.",
     color: "#ff6b00", // Bright Orange
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Zustand", "Vite"],
     video: "/media/career-tour.webm",
     poster: "/media/career-tour-poster.webp",
     image: "/media/career.webp",
@@ -57,6 +60,6 @@ export const PROJECTS = [
       { type: 'image', src: '/media/career-cronograma.webp', caption: 'Armado Automático de Horario sin Superposiciones' },
       { type: 'image', src: '/media/career-planificador.webp', caption: 'Planificador: Materias Ordenadas por Impacto' }
     ],
-    fullDescription: "Carrer Tracker es una solución interactiva para estudiantes universitarios, transformando planes de estudio estáticos en grafos interactivos donde se visualizan trabas, correlativas y rutas críticas. Facilita la planificación cuatrimestral resolviendo conflictos de horarios de forma automática."
+    fullDescription: "Career Tracker es una solución interactiva para estudiantes universitarios, transformando planes de estudio estáticos en grafos interactivos donde se visualizan trabas, correlativas y rutas críticas. Facilita la planificación cuatrimestral resolviendo conflictos de horarios de forma automática."
   }
 ];
