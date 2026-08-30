@@ -98,18 +98,18 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="p-8 border border-white/10 hover:bg-white/[0.02] transition-colors relative group overflow-hidden"
+      className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/20 transition-all duration-300 relative group overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-      <h3 className="text-xl font-light mb-6 text-white transform-gpu" style={{ transform: "translateZ(20px)" }}>{cat.title}</h3>
+      <h3 className="text-lg font-medium mb-6 text-white transform-gpu" style={{ transform: "translateZ(20px)" }}>{cat.title}</h3>
       <ul className="flex flex-col gap-3 transform-gpu" style={{ transform: "translateZ(10px)" }}>
         {cat.skills.map((skill: any, j: number) => (
-          <li key={j} className="group/item text-white/90 text-sm font-mono flex items-center gap-3 hover:text-white transition-colors cursor-default">
+          <li key={j} className="group/item text-white/80 text-xs font-mono flex items-center gap-3 hover:text-white transition-colors cursor-default">
             <span 
-              className="w-6 h-6 flex items-center justify-center bg-[#111] rounded-md border border-white/5 shadow-sm group-hover/item:border-white/20 transition-all duration-300"
+              className="w-6 h-6 flex items-center justify-center bg-[#151210] rounded-lg border border-white/10 shadow-sm group-hover/item:border-white/25 transition-all duration-300"
             >
               <skill.icon 
-                className="w-3.5 h-3.5 opacity-80 group-hover/item:opacity-100 transition-opacity duration-300" 
+                className="w-3.5 h-3.5 opacity-85 group-hover/item:opacity-100 transition-opacity duration-300" 
                 style={{ color: skill.color || '#ffffff' }}
               />
             </span>
@@ -123,11 +123,14 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
 
 export default function Skills() {
   return (
-    <section className="w-full py-32 px-6 md:px-20 bg-[#1f1b18] text-white border-t border-white/5" style={{ perspective: "1000px" }}>
+    <section id="skills" className="w-full py-32 px-6 md:px-20 bg-[#1f1b18] text-white border-t border-white/5" style={{ perspective: "1000px" }}>
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-sm uppercase tracking-widest text-white/70 mb-16 text-center">Habilidades Técnicas</h2>
+        <div className="text-center mb-16">
+          <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">STACK TECNOLÓGICO</span>
+          <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">Habilidades & Herramientas</h2>
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {SKILL_CATEGORIES.map((cat, i) => (
             <SkillCard key={i} cat={cat} index={i} />
           ))}

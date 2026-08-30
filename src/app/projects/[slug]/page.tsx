@@ -35,19 +35,19 @@ export default async function ProjectPage({ params }: { params: { slug: string }
     <main className="min-h-screen bg-[#1f1b18] text-white">
       <div className="max-w-7xl mx-auto px-6 md:px-20 py-32">
         
-        <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-16 uppercase tracking-widest text-sm">
-          <ArrowLeft className="w-4 h-4" />
-          Volver al Inicio
+        <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-16 font-mono tracking-wider text-xs">
+          <ArrowLeft className="w-3.5 h-3.5" />
+          VOLVER AL INICIO
         </Link>
 
         <header className="mb-20">
-          <div className="flex items-center gap-4 text-sm text-white/80 mb-6 font-mono">
-            <span className="uppercase tracking-widest">{project.category}</span>
+          <div className="flex items-center gap-4 text-xs text-white/70 mb-6 font-mono">
+            <span className="uppercase tracking-wider">{project.category}</span>
             <span className="w-1 h-1 rounded-full bg-white/30"></span>
             <span>{project.year}</span>
           </div>
           
-          <h1 className="text-6xl md:text-9xl font-light tracking-tighter mb-8 text-white">
+          <h1 className="text-5xl md:text-8xl font-light tracking-tighter mb-8 text-white">
             {project.title}
           </h1>
           
@@ -63,18 +63,17 @@ export default async function ProjectPage({ params }: { params: { slug: string }
                 href={project.liveUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-white text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-transparent hover:text-white border border-white transition-colors "
+                className="inline-flex items-center gap-2.5 bg-white text-black px-6 py-3 rounded-full text-xs font-mono tracking-wider hover:bg-white/90 active:scale-[0.98] transition-all"
               >
-                Visitar Sitio Web
-                <ArrowLeft className="w-4 h-4 rotate-135" style={{ transform: 'rotate(135deg)' }} />
+                VISITAR SITIO WEB ↗
               </a>
             </div>
           )}
 
           {project.techStack && (
-            <div className="mt-12 flex flex-wrap gap-3">
+            <div className="mt-12 flex flex-wrap gap-2.5">
               {project.techStack.map((tech, i) => (
-                <span key={i} className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-white/90">
+                <span key={i} className="px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-xs font-mono text-white/80">
                   {tech}
                 </span>
               ))}
@@ -87,11 +86,11 @@ export default async function ProjectPage({ params }: { params: { slug: string }
         <ProjectGallery gallery={project.gallery} />
 
         <footer className="mt-32 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-white/70 text-sm uppercase tracking-widest">
-            Proyecto / {project.title}
+          <div className="text-white/60 text-xs font-mono tracking-wider">
+            PROYECTO · {project.title.toUpperCase()}
           </div>
-          <Link href="/" className="px-8 py-4 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all">
-            Volver al Portafolio
+          <Link href="/" className="px-6 py-3 rounded-full border border-white/20 hover:bg-white hover:text-black active:scale-[0.98] transition-all text-xs font-mono tracking-wider">
+            VOLVER AL PORTAFOLIO ↗
           </Link>
         </footer>
 

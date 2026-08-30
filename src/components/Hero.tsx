@@ -129,40 +129,34 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden pt-24 pb-20">
       <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none opacity-60" />
       
-      <div className="z-10 text-center px-4 flex flex-col items-center">
+      {/* Subtle warm ambient glow behind sphere */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
+
+      <div className="z-10 text-center px-4 flex flex-col items-center max-w-4xl mx-auto">
         
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8 backdrop-blur-sm"
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-2.5 bg-white/[0.04] border border-white/10 px-4 py-1.5 rounded-full mb-8 backdrop-blur-md"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <span className="text-white/80 text-xs font-mono">
-            Disponible para nuevos proyectos — Buenos Aires, {time || "..."}
+            Disponible para proyectos · Buenos Aires {time ? `(${time}hs)` : ""}
           </span>
         </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-white/80 tracking-[0.2em] text-sm uppercase mb-6"
-        >
-          Rodrigo Castillo
-        </motion.p>
         
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-5xl md:text-8xl font-bold tracking-tighter mix-blend-difference text-white"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-white uppercase leading-[0.95]"
         >
           AI AGENT <br /> DEVELOPER
         </motion.h1>
@@ -170,34 +164,34 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-8 flex flex-col gap-4 text-white/90 max-w-xl mx-auto text-lg md:text-xl font-light"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-8 flex flex-col gap-3 text-white/80 max-w-xl mx-auto text-base md:text-lg font-light leading-relaxed"
         >
           <p>
-            Especialista en soluciones conversacionales avanzadas, integrando modelos de lenguaje (LLMs) y arquitecturas robustas de software.
+            Especialista en sistemas conversacionales avanzados, orquestación de flujos agénticos (LLMs) y arquitectura de software escalable.
           </p>
-          <p className="text-sm md:text-base text-white/70">
-            Usualmente me encontrarás construyendo agentes en <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">GitHub</a>, o compartiendo mi experiencia profesional en <a href="https://www.linkedin.com/in/rodrigoncastillo/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">LinkedIn</a>.
+          <p className="text-sm font-mono text-white/60">
+            Construyendo en <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">GitHub</a> · Trayectoria en <a href="https://www.linkedin.com/in/rodrigoncastillo/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">LinkedIn</a>
           </p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 cursor-pointer group"
+          transition={{ duration: 1, delay: 0.8 }}
+          className="mt-14 flex flex-col items-center gap-3 cursor-pointer group"
           onClick={() => {
             const aboutSection = document.getElementById("about");
             aboutSection?.scrollIntoView({ behavior: "smooth" });
           }}
         >
-          <span className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-bold group-hover:text-white/80 transition-colors">
+          <span className="text-white/50 text-[10px] tracking-[0.2em] uppercase font-mono group-hover:text-white/90 transition-colors">
             Desliza para explorar
           </span>
-          <div className="w-[1px] h-16 bg-white/10 relative overflow-hidden">
+          <div className="w-[1px] h-12 bg-white/10 relative overflow-hidden">
             <motion.div 
-              className="absolute top-0 left-0 w-full h-1/3 bg-white"
-              animate={{ y: [-20, 64], opacity: [0, 1, 0] }}
+              className="absolute top-0 left-0 w-full h-1/2 bg-white"
+              animate={{ y: [-16, 48], opacity: [0, 1, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             />
           </div>
