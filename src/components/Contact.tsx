@@ -44,9 +44,9 @@ export default function Contact() {
             
             <a 
               href="mailto:castillorod.n@gmail.com" 
-              className="group relative block w-full text-center"
+              className="group relative block w-full text-center px-4"
             >
-              <h1 className="text-[7vw] sm:text-[8vw] md:text-[9vw] lg:text-[7.5vw] font-bold tracking-tighter leading-none mb-8 text-white transition-all duration-500 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-white/50 group-hover:to-white">
+              <h1 className="text-[5.5vw] sm:text-[4.5vw] md:text-[4vw] lg:text-[3.5vw] font-bold tracking-tighter leading-none mb-8 text-white transition-all duration-500 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-white/50 group-hover:to-white break-words">
                 castillorod.n@gmail.com
               </h1>
               
