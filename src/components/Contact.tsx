@@ -5,10 +5,10 @@ import { ArrowRight } from "lucide-react";
 import { useRef, useState } from "react";
 
 export default function Contact() {
-  const buttonRef = useRef<HTMLAnchorElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!buttonRef.current) return;
     const { clientX, clientY } = e;
     const { width, height, left, top } = buttonRef.current.getBoundingClientRect();
