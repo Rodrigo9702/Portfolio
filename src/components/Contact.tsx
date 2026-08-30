@@ -30,35 +30,41 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto flex flex-col relative z-10">
         
         {/* Main CTA */}
-        <div className="flex flex-col items-center text-center mb-32">
+        <div className="flex flex-col items-center text-center mb-32 w-full">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="w-full flex flex-col items-center"
           >
-            <h2 className="text-sm uppercase tracking-[0.3em] text-white/70 mb-6 max-w-2xl mx-auto">
+            <h2 className="text-sm uppercase tracking-[0.3em] text-white/70 mb-12 max-w-2xl mx-auto">
               Si buscas a alguien para escalar tus proyectos o resolver problemas complejos...
             </h2>
-            <h1 className="text-5xl md:text-[7vw] font-bold tracking-tighter leading-none mb-12">
-              NO DUDES EN <br className="hidden md:block" /> CONTACTARME
-            </h1>
+            
+            <a 
+              href="mailto:castillorod.n@gmail.com" 
+              className="group relative block w-full text-center"
+            >
+              <h1 className="text-[7vw] sm:text-[8vw] md:text-[9vw] lg:text-[7.5vw] font-bold tracking-tighter leading-none mb-8 text-white transition-all duration-500 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-white/50 group-hover:to-white">
+                castillorod.n@gmail.com
+              </h1>
+              
+              <motion.div 
+                ref={buttonRef}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                animate={{ x: position.x, y: position.y }}
+                transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+                className="mx-auto flex items-center justify-center gap-4 bg-white text-black px-8 py-4 rounded-full text-lg md:text-xl font-medium hover:scale-105 transition-transform duration-300 w-max"
+              >
+                <span>Enviar un mensaje</span>
+                <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center">
+                  <ArrowRight className="w-4 h-4 -rotate-45" />
+                </div>
+              </motion.div>
+            </a>
           </motion.div>
-
-          <motion.a 
-            ref={buttonRef}
-            href="mailto:castillorod.n@gmail.com"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            animate={{ x: position.x, y: position.y }}
-            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-            className="group relative flex items-center gap-6 bg-white text-black px-8 py-5 rounded-full text-xl md:text-3xl font-medium hover:bg-transparent hover:text-white border-2 border-white transition-colors duration-300 "
-          >
-            <span>castillorod.n@gmail.com</span>
-            <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
-              <ArrowRight className="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-            </div>
-          </motion.a>
         </div>
 
         {/* Footer info grid */}

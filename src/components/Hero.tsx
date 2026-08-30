@@ -1,11 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [time, setTime] = useState<string>("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const formatter = new Intl.DateTimeFormat('es-AR', {
+        timeZone: 'America/Argentina/Buenos_Aires',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+      setTime(formatter.format(new Date()));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -117,6 +133,22 @@ export default function Hero() {
       <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none opacity-60" />
       
       <div className="z-10 text-center px-4 flex flex-col items-center">
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8 backdrop-blur-sm"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span className="text-white/80 text-xs font-mono">
+            Disponible para nuevos proyectos — Buenos Aires, {time || "..."}
+          </span>
+        </motion.div>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -135,14 +167,19 @@ export default function Hero() {
           AI AGENT <br /> DEVELOPER
         </motion.h1>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-8 text-white/70 max-w-xl mx-auto text-lg md:text-xl font-light"
+          className="mt-8 flex flex-col gap-4 text-white/90 max-w-xl mx-auto text-lg md:text-xl font-light"
         >
-          Especialista en soluciones conversacionales avanzadas, integrando modelos de lenguaje (LLMs) y arquitecturas robustas de software.
-        </motion.p>
+          <p>
+            Especialista en soluciones conversacionales avanzadas, integrando modelos de lenguaje (LLMs) y arquitecturas robustas de software.
+          </p>
+          <p className="text-sm md:text-base text-white/70">
+            Usualmente me encontrarás construyendo agentes en <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">GitHub</a>, o compartiendo mi experiencia profesional en <a href="https://www.linkedin.com/in/rodrigoncastillo/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">LinkedIn</a>.
+          </p>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}

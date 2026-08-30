@@ -42,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className="flex flex-col selection:bg-white/30 selection:text-white">
+        <div className="bg-noise" />
         
         <Preloader />
         <Navbar />
