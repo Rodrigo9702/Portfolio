@@ -61,12 +61,14 @@ const SKILL_CATEGORIES = [
 function SkillCard({ cat, index }: { cat: any; index: number }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const mouseXSpotlight = useMotionValue(0);
+  const mouseYSpotlight = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
+  const mouseXSpring = useSpring(x, { stiffness: 120, damping: 18 });
+  const mouseYSpring = useSpring(y, { stiffness: 120, damping: 18 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -74,6 +76,10 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
     const height = rect.height;
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
+    
+    mouseXSpotlight.set(mouseX);
+    mouseYSpotlight.set(mouseY);
+    
     const xPct = mouseX / width - 0.5;
     const yPct = mouseY / height - 0.5;
     x.set(xPct);
@@ -98,22 +104,34 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/20 transition-all duration-300 relative group overflow-hidden"
+      className="p-7 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/25 transition-all duration-300 relative group overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-      <h3 className="text-lg font-medium mb-6 text-white transform-gpu" style={{ transform: "translateZ(20px)" }}>{cat.title}</h3>
-      <ul className="flex flex-col gap-3 transform-gpu" style={{ transform: "translateZ(10px)" }}>
+      {/* Dynamic Cursor Spotlight */}
+      <motion.div 
+        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: useTransform(
+            [mouseXSpotlight, mouseYSpotlight],
+            ([sx, sy]) => `radial-gradient(400px circle at ${sx}px ${sy}px, rgba(255,255,255,0.06), transparent 80%)`
+          )
+        }}
+      />
+
+      <h3 className="text-base font-medium mb-6 text-white transform-gpu tracking-tight" style={{ transform: "translateZ(20px)" }}>
+        {cat.title}
+      </h3>
+      <ul className="flex flex-col gap-2.5 transform-gpu" style={{ transform: "translateZ(10px)" }}>
         {cat.skills.map((skill: any, j: number) => (
           <li key={j} className="group/item text-white/80 text-xs font-mono flex items-center gap-3 hover:text-white transition-colors cursor-default">
             <span 
-              className="w-6 h-6 flex items-center justify-center bg-[#151210] rounded-lg border border-white/10 shadow-sm group-hover/item:border-white/25 transition-all duration-300"
+              className="w-6 h-6 flex items-center justify-center bg-[#151210] rounded-lg border border-white/10 shadow-sm group-hover/item:border-white/30 group-hover/item:scale-110 transition-all duration-300"
             >
               <skill.icon 
                 className="w-3.5 h-3.5 opacity-85 group-hover/item:opacity-100 transition-opacity duration-300" 
                 style={{ color: skill.color || '#ffffff' }}
               />
             </span>
-            {skill.name}
+            <span>{skill.name}</span>
           </li>
         ))}
       </ul>

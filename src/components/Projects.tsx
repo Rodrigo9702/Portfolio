@@ -91,11 +91,12 @@ export default function Projects() {
                 </div>
 
                 <div className="mt-4 md:mt-0 flex flex-row items-center justify-between md:justify-end gap-6 z-10 pointer-events-none w-full md:w-auto">
-                  <div className="flex flex-col items-start md:items-end gap-1.5">
-                    <div className="flex items-center gap-3 text-xs md:text-sm text-white/80 font-mono">
-                      <span className="uppercase tracking-wider">{project.category}</span>
-                      <span className="w-1 h-1 rounded-full bg-white/30"></span>
-                      <span>{project.year}</span>
+                  <div className="flex flex-col items-start md:items-end gap-2">
+                    <div className="flex items-center gap-3 text-xs text-white/80 font-mono">
+                      <span className="px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[11px] text-white/70">
+                        {project.category}
+                      </span>
+                      <span className="text-white/40">{project.year}</span>
                     </div>
                     <motion.div 
                       className="overflow-hidden hidden md:block"
@@ -105,7 +106,7 @@ export default function Projects() {
                       }}
                       transition={{ duration: 0.3 }}
                     >
-                      <p className="max-w-[320px] text-right text-white/70 text-xs md:text-sm mt-2 font-light">
+                      <p className="max-w-[340px] text-right text-white/70 text-xs mt-1.5 font-light leading-relaxed">
                         {project.description}
                       </p>
                     </motion.div>
@@ -114,8 +115,8 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 md:flex hidden flex-shrink-0">
-                    <ArrowUpRight className="w-8 h-8 text-white/80" />
+                  <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 group-hover:bg-white group-hover:text-black transition-all duration-300 md:flex hidden flex-shrink-0">
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </div>
               </motion.div>

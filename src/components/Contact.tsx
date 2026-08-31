@@ -114,7 +114,12 @@ export default function Contact() {
 
           <div className="flex flex-col gap-2 md:items-end">
             <span className="text-white/30 uppercase">Desarrollo & Diseño</span>
-            <span className="text-white/80">Rodrigo Castillo © 2026</span>
+            <div className="flex items-center gap-2.5 text-white/80">
+              <span>Rodrigo Castillo</span>
+              <svg viewBox="0 0 9 8" className="w-3.5 h-3.5 fill-blue-500 animate-pulse" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 0 h2 v1 h-2 z M6 0 h2 v1 h-2 z M0 1 h4 v1 h-4 z M5 1 h4 v1 h-4 z M0 2 h9 v1 h-9 z M0 3 h9 v1 h-9 z M1 4 h7 v1 h-7 z M2 5 h5 v1 h-5 z M3 6 h3 v1 h-3 z M4 7 h1 v1 h-1 z" />
+              </svg>
+            </div>
           </div>
 
         </div>
