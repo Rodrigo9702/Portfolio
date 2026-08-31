@@ -59,10 +59,12 @@ export default function Hero() {
     const sphereGroup = new THREE.Group();
     scene.add(sphereGroup);
 
-    // Initial position based on screen width
+    // Initial position and scale based on screen width
     const isDesktop = window.innerWidth >= 1024;
     sphereGroup.position.x = isDesktop ? 2.4 : 0;
-    sphereGroup.position.y = isDesktop ? 0 : -0.5;
+    sphereGroup.position.y = isDesktop ? 0 : -1.35;
+    const initialBaseScale = isDesktop ? 1 : 0.52;
+    sphereGroup.scale.set(initialBaseScale, initialBaseScale, initialBaseScale);
 
     // 1. Outer Morphing Geometric Wireframe Sphere (Reduced density & softened tone)
     const wireGeometry = new THREE.IcosahedronGeometry(2.0, 12);
@@ -158,10 +160,15 @@ export default function Hero() {
       sphereGroup.rotation.y += (targetRotationY + mouseX * 0.35 - sphereGroup.rotation.y) * 0.05;
       sphereGroup.rotation.x += (targetRotationX - mouseY * 0.35 - sphereGroup.rotation.x) * 0.05;
 
-      // Scroll-driven Black Hole absorption in 3D world space
-      const targetX = (window.innerWidth >= 1024) ? (2.4 - currentScroll * 2.2) : 0;
-      const targetScale = 1 + currentScroll * 0.35;
+      // Scroll-driven absorption in 3D world space
+      const isDesk = window.innerWidth >= 1024;
+      const targetX = isDesk ? (2.4 - currentScroll * 2.2) : 0;
+      const targetY = isDesk ? 0 : (-1.35 - currentScroll * 1.2);
+      const baseScale = isDesk ? 1 : 0.52;
+      const targetScale = baseScale * (1 + currentScroll * 0.3);
+      
       sphereGroup.position.x += (targetX - sphereGroup.position.x) * 0.1;
+      sphereGroup.position.y += (targetY - sphereGroup.position.y) * 0.1;
       sphereGroup.scale.set(targetScale, targetScale, targetScale);
 
       // Layered atmosphere smooth cosmic drift
@@ -188,9 +195,11 @@ export default function Hero() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      const desktop = window.innerWidth >= 1024;
-      sphereGroup.position.x = desktop ? 2.4 : 0;
-      sphereGroup.position.y = desktop ? 0 : -0.5;
+      const desk = window.innerWidth >= 1024;
+      sphereGroup.position.x = desk ? 2.4 : 0;
+      sphereGroup.position.y = desk ? 0 : -1.35;
+      const bScale = desk ? 1 : 0.52;
+      sphereGroup.scale.set(bScale, bScale, bScale);
     };
 
     const handleScroll = () => {
@@ -282,6 +291,9 @@ export default function Hero() {
               Construyendo en <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">GitHub</a> · Trayectoria en <a href="https://www.linkedin.com/in/rodrigoncastillo/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">LinkedIn</a>
             </p>
           </motion.div>
+
+          {/* Dedicated mobile space for the 3D Sphere */}
+          <div className="w-full h-[200px] lg:hidden mb-8 pointer-events-none" />
 
           {/* Vertical Downward Scroll Indicator */}
           <motion.div
