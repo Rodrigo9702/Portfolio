@@ -47,58 +47,62 @@ export default function Hero() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Master group for the entire dual-sphere system
+    // Master group for the entire system
     const sphereGroup = new THREE.Group();
     scene.add(sphereGroup);
 
-    // Initial position based on screen width (right on desktop, centered on mobile)
+    // Initial position based on screen width
     const isDesktop = window.innerWidth >= 1024;
     sphereGroup.position.x = isDesktop ? 2.4 : 0;
     sphereGroup.position.y = isDesktop ? 0 : -0.5;
 
-    // 1. Outer Morphing Particle Sphere (High Density)
-    const particleGeometry = new THREE.IcosahedronGeometry(2.35, 24);
-    const particleCount = particleGeometry.attributes.position.count;
-    const origParticlePos: THREE.Vector3[] = [];
-    const particlePositions = particleGeometry.attributes.position;
-    const vertex = new THREE.Vector3();
+    // 1. Central Singularity Core (Black Hole Nucleus)
+    const coreGeometry = new THREE.SphereGeometry(0.85, 32, 32);
+    const coreMaterial = new THREE.MeshStandardMaterial({
+      color: 0x0a0908, // Obsidian deep void
+      emissive: 0x1a1612, // Subtle dark warm rim
+      roughness: 0.1,
+      metalness: 0.9,
+    });
+    const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
+    sphereGroup.add(coreMesh);
 
-    for (let i = 0; i < particleCount; i++) {
-      vertex.fromBufferAttribute(particlePositions, i);
-      origParticlePos.push(vertex.clone());
-    }
-
-    const particleMaterial = new THREE.PointsMaterial({
-      color: 0xf6f3ed,
-      size: 0.038,
+    // Subtle event-horizon accretion glow ring
+    const ringGeometry = new THREE.RingGeometry(0.88, 1.05, 32);
+    const ringMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.15,
+      side: THREE.DoubleSide,
       blending: THREE.AdditiveBlending,
     });
+    const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+    ringMesh.rotation.x = Math.PI / 2;
+    sphereGroup.add(ringMesh);
 
-    const particles = new THREE.Points(particleGeometry, particleMaterial);
-    sphereGroup.add(particles);
+    // 2. Outer Morphing Geometric Wireframe Sphere
+    const wireGeometry = new THREE.IcosahedronGeometry(2.35, 16);
+    const wirePositions = wireGeometry.attributes.position;
+    const wireCount = wirePositions.count;
+    const origWirePos: THREE.Vector3[] = [];
+    const vertex = new THREE.Vector3();
 
-    // 2. Inner Concentric Wireframe Cage (Harmonized, perfectly scaled inside)
-    const innerGeometry = new THREE.IcosahedronGeometry(2.05, 8);
-    const innerPositions = innerGeometry.attributes.position;
-    const origInnerPos: THREE.Vector3[] = [];
-    for (let i = 0; i < innerPositions.count; i++) {
-      vertex.fromBufferAttribute(innerPositions, i);
-      origInnerPos.push(vertex.clone());
+    for (let i = 0; i < wireCount; i++) {
+      vertex.fromBufferAttribute(wirePositions, i);
+      origWirePos.push(vertex.clone());
     }
 
-    const innerMaterial = new THREE.MeshBasicMaterial({
-      color: 0xe8e2d8,
+    const wireMaterial = new THREE.MeshBasicMaterial({
+      color: 0xf5f1ea, // Elegant bone white
       wireframe: true,
       transparent: true,
-      opacity: 0.22,
+      opacity: 0.45,
     });
-    const innerMesh = new THREE.Mesh(innerGeometry, innerMaterial);
-    sphereGroup.add(innerMesh);
+    const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
+    sphereGroup.add(wireMesh);
 
-    // 3. Ambient Floating Stardust
-    const dustCount = 160;
+    // 3. Ambient Stardust
+    const dustCount = 140;
     const dustGeometry = new THREE.BufferGeometry();
     const dustPositions = new Float32Array(dustCount * 3);
     for (let i = 0; i < dustCount * 3; i += 3) {
@@ -116,6 +120,13 @@ export default function Hero() {
     const dust = new THREE.Points(dustGeometry, dustMaterial);
     scene.add(dust);
 
+    // Lights for the singularity core
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0xffffff, 2, 20);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
     camera.position.z = 8.2;
 
     let mouseX = 0;
@@ -130,40 +141,31 @@ export default function Hero() {
       animationFrameId = requestAnimationFrame(animate);
       const time = clock.getElapsedTime() * 0.75;
 
-      // Outer particle morphing with harmonic waves
-      for (let i = 0; i < particleCount; i++) {
-        const v = origParticlePos[i];
+      // Outer wireframe morphing with harmonic waves
+      for (let i = 0; i < wireCount; i++) {
+        const v = origWirePos[i];
         const offset = 
-          Math.sin(v.x * 1.6 + time) * 0.08 + 
-          Math.cos(v.y * 1.6 + time * 1.1) * 0.08 + 
-          Math.sin(v.z * 1.6 + time * 0.9) * 0.08;
+          Math.sin(v.x * 1.6 + time) * 0.09 + 
+          Math.cos(v.y * 1.6 + time * 1.1) * 0.09 + 
+          Math.sin(v.z * 1.6 + time * 0.9) * 0.09;
         const ratio = 1 + offset;
-        particlePositions.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
+        wirePositions.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
       }
-      particleGeometry.attributes.position.needsUpdate = true;
+      wireGeometry.attributes.position.needsUpdate = true;
 
-      // Inner wireframe morphing synchronously (exact same wave phase so they never collide)
-      for (let i = 0; i < innerPositions.count; i++) {
-        const v = origInnerPos[i];
-        const offset = 
-          Math.sin(v.x * 1.6 + time) * 0.08 + 
-          Math.cos(v.y * 1.6 + time * 1.1) * 0.08 + 
-          Math.sin(v.z * 1.6 + time * 0.9) * 0.08;
-        const ratio = 1 + offset;
-        innerPositions.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
-      }
-      innerGeometry.attributes.position.needsUpdate = true;
+      // Singularity core pulse
+      const corePulse = 1 + Math.sin(time * 2) * 0.03;
+      coreMesh.scale.set(corePulse, corePulse, corePulse);
+      ringMesh.rotation.z += 0.005;
 
-      // Continuous dual-spin
+      // Continuous rotation
       targetRotationY += 0.002;
       targetRotationX += 0.0008;
 
       sphereGroup.rotation.y += (targetRotationY + mouseX * 0.35 - sphereGroup.rotation.y) * 0.05;
       sphereGroup.rotation.x += (targetRotationX - mouseY * 0.35 - sphereGroup.rotation.x) * 0.05;
-      innerMesh.rotation.y -= 0.001;
 
       // Scroll-driven Black Hole absorption in 3D world space
-      // Interpolate current scroll progress smoothly
       const targetX = (window.innerWidth >= 1024) ? (2.4 - currentScroll * 2.2) : 0;
       const targetScale = 1 + currentScroll * 0.35;
       sphereGroup.position.x += (targetX - sphereGroup.position.x) * 0.1;
@@ -211,10 +213,12 @@ export default function Hero() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
       renderer.dispose();
-      particleGeometry.dispose();
-      particleMaterial.dispose();
-      innerGeometry.dispose();
-      innerMaterial.dispose();
+      coreGeometry.dispose();
+      coreMaterial.dispose();
+      ringGeometry.dispose();
+      ringMaterial.dispose();
+      wireGeometry.dispose();
+      wireMaterial.dispose();
       dustGeometry.dispose();
       dustMaterial.dispose();
     };
