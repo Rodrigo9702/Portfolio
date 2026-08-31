@@ -10,8 +10,9 @@ export default function About() {
 
   return (
     <section id="about" className="relative w-full py-32 px-5 sm:px-8 md:px-20 bg-[#1f1b18] border-t border-white/5">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 md:gap-20 items-start">
-        <div className="md:w-1/3" ref={ref}>
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 md:gap-16 items-start">
+        {/* Left Side: 38.2% Minor Golden Section */}
+        <div className="w-full md:w-[38.2%]" ref={ref}>
           <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight flex flex-col gap-2">
             <span className="overflow-hidden block">
               <motion.span 
@@ -46,8 +47,9 @@ export default function About() {
           </h2>
         </div>
 
+        {/* Right Side: 61.8% Major Golden Section */}
         <motion.div 
-          className="md:w-2/3 space-y-8 text-white/90 text-lg md:text-xl font-light leading-relaxed"
+          className="w-full md:w-[61.8%] space-y-8 text-white/90 text-lg md:text-xl font-light leading-relaxed"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}

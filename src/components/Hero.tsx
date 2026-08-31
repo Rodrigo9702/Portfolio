@@ -88,6 +88,10 @@ export default function Hero() {
     const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
     sphereGroup.add(wireMesh);
 
+    // Golden Ratio & Fibonacci Mathematical Constants
+    const PHI = 1.61803398875;
+    const GOLDEN_ANGLE = 2.399963229728653; // ~137.507764 deg (Exact Golden Angle)
+
     // 2. High-Res Soft Circular Particle Texture
     const createCircleTexture = () => {
       const c = document.createElement('canvas');
@@ -108,22 +112,23 @@ export default function Hero() {
     };
     const circleTexture = createCircleTexture();
 
-    // Inward Gravitational Flow Particles (Layered & Refined sizes)
-    // A) Background Accretion Stardust (240 particles)
+    // Inward Fibonacci Golden Spiral Accretion Particles
+    // A) Background Accretion Stardust (240 particles structured by Golden Angle)
     const bgDustCount = 240;
     const bgDustGeometry = new THREE.BufferGeometry();
     const bgDustPositions = new Float32Array(bgDustCount * 3);
-    for (let i = 0; i < bgDustCount * 3; i += 3) {
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 4 + Math.random() * 12;
-      bgDustPositions[i] = Math.cos(angle) * radius;
-      bgDustPositions[i + 1] = (Math.random() - 0.5) * 16;
-      bgDustPositions[i + 2] = Math.sin(angle) * radius * 0.7 - 2;
+    for (let i = 0; i < bgDustCount; i++) {
+      const theta = i * GOLDEN_ANGLE;
+      const radius = 3.5 + Math.sqrt(i / bgDustCount) * 11;
+      const idx = i * 3;
+      bgDustPositions[idx] = Math.cos(theta) * radius * (PHI / 1.3);
+      bgDustPositions[idx + 1] = ((i % 7) - 3) * 1.5;
+      bgDustPositions[idx + 2] = Math.sin(theta) * radius * (1 / PHI) - 1.5;
     }
     bgDustGeometry.setAttribute('position', new THREE.BufferAttribute(bgDustPositions, 3));
     const bgDustMaterial = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.045, // Refined subtle size
+      size: 0.045,
       map: circleTexture || undefined,
       transparent: true,
       opacity: 0.32,
@@ -133,21 +138,22 @@ export default function Hero() {
     const bgDust = new THREE.Points(bgDustGeometry, bgDustMaterial);
     scene.add(bgDust);
 
-    // B) Foreground Inward Drifting Light Specks (90 particles)
+    // B) Foreground Luminous Specks (90 particles structured in Golden Ratio Disk)
     const fgDustCount = 90;
     const fgDustGeometry = new THREE.BufferGeometry();
     const fgDustPositions = new Float32Array(fgDustCount * 3);
-    for (let i = 0; i < fgDustCount * 3; i += 3) {
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 3.5 + Math.random() * 9;
-      fgDustPositions[i] = Math.cos(angle) * radius;
-      fgDustPositions[i + 1] = (Math.random() - 0.5) * 12;
-      fgDustPositions[i + 2] = Math.sin(angle) * radius * 0.6 + 1;
+    for (let i = 0; i < fgDustCount; i++) {
+      const theta = i * GOLDEN_ANGLE;
+      const radius = 2.8 + Math.sqrt(i / fgDustCount) * 7.5;
+      const idx = i * 3;
+      fgDustPositions[idx] = Math.cos(theta) * radius;
+      fgDustPositions[idx + 1] = ((i % 5) - 2) * 1.6;
+      fgDustPositions[idx + 2] = Math.sin(theta) * radius * (1 / PHI) + 0.8;
     }
     fgDustGeometry.setAttribute('position', new THREE.BufferAttribute(fgDustPositions, 3));
     const fgDustMaterial = new THREE.PointsMaterial({
       color: 0xf5eee4,
-      size: 0.075, // Refined subtle size
+      size: 0.075,
       map: circleTexture || undefined,
       transparent: true,
       opacity: 0.55,
@@ -183,7 +189,7 @@ export default function Hero() {
       }
       wireGeometry.attributes.position.needsUpdate = true;
 
-      // Continuous rotation
+      // Continuous rotation along golden proportions
       targetRotationY += 0.002;
       targetRotationX += 0.0008;
 
@@ -193,7 +199,6 @@ export default function Hero() {
       // Scroll-driven absorption in 3D world space
       const isDesk = window.innerWidth >= 1024;
       const targetX = isDesk ? (2.4 - currentScroll * 2.2) : 0;
-      // On mobile: sphere rises upward towards the title (+0.75) to engulf it!
       const targetY = isDesk ? 0 : (-1.35 + currentScroll * 2.1);
       const baseScale = isDesk ? 1 : 0.52;
       const targetScale = baseScale * (1 + currentScroll * 0.4);
@@ -202,73 +207,72 @@ export default function Hero() {
       sphereGroup.position.y += (targetY - sphereGroup.position.y) * 0.1;
       sphereGroup.scale.set(targetScale, targetScale, targetScale);
 
-      // Gravitational Orbital Accretion Physics (Hypnotic slow celestial orbits with gentle inward drift)
+      // Fibonacci Golden Spiral Accretion Physics
       const cx = sphereGroup.position.x;
       const cy = sphereGroup.position.y;
       const cz = sphereGroup.position.z;
       
-      // Update background stardust orbital drift
+      // Update background stardust orbital drift along golden spiral
       const bgArr = bgDustGeometry.attributes.position.array as Float32Array;
-      for (let i = 0; i < bgDustCount * 3; i += 3) {
-        let rx = bgArr[i] - cx;
-        let ry = bgArr[i + 1] - cy;
-        let rz = bgArr[i + 2] - cz;
+      for (let i = 0; i < bgDustCount; i++) {
+        const idx = i * 3;
+        let rx = bgArr[idx] - cx;
+        let ry = bgArr[idx + 1] - cy;
+        let rz = bgArr[idx + 2] - cz;
         let dist = Math.sqrt(rx * rx + ry * ry + rz * rz);
         
         if (dist < 0.8) {
-          // Re-spawn far outer orbit
-          const angle = Math.random() * Math.PI * 2;
-          const radius = 10 + Math.random() * 8;
-          bgArr[i] = cx + Math.cos(angle) * radius;
-          bgArr[i + 1] = cy + (Math.random() - 0.5) * 14;
-          bgArr[i + 2] = cz + Math.sin(angle) * radius * 0.7 - 2;
+          // Re-spawn along Fibonacci spiral outer perimeter
+          const theta = (i + Math.floor(time * 8)) * GOLDEN_ANGLE;
+          const radius = 10 + (i % 6) * 1.5;
+          bgArr[idx] = cx + Math.cos(theta) * radius * (PHI / 1.3);
+          bgArr[idx + 1] = cy + ((i % 7) - 3) * 1.5;
+          bgArr[idx + 2] = cz + Math.sin(theta) * radius * (1 / PHI) - 1.5;
         } else {
-          // Gentle Keplerian orbital rotation around sphere
-          const orbitSpeed = 0.0018 + (1 / Math.max(dist, 2)) * 0.0035;
+          // Golden Ratio Keplerian orbital rotation
+          const orbitSpeed = 0.0016 + (1 / Math.max(dist, 2)) * 0.0032;
           const cosA = Math.cos(orbitSpeed);
           const sinA = Math.sin(orbitSpeed);
           
           const nextRx = rx * cosA - rz * sinA;
           const nextRz = rx * sinA + rz * cosA;
           
-          // Ultra-slow inward spiral drift (0.12% per frame)
           const inwardRate = 0.9988;
-          bgArr[i] = cx + nextRx * inwardRate;
-          bgArr[i + 1] = cy + ry * 0.9995;
-          bgArr[i + 2] = cz + nextRz * inwardRate;
+          bgArr[idx] = cx + nextRx * inwardRate;
+          bgArr[idx + 1] = cy + ry * 0.9995;
+          bgArr[idx + 2] = cz + nextRz * inwardRate;
         }
       }
       bgDustGeometry.attributes.position.needsUpdate = true;
 
       // Update foreground luminous particles orbital drift
       const fgArr = fgDustGeometry.attributes.position.array as Float32Array;
-      for (let i = 0; i < fgDustCount * 3; i += 3) {
-        let rx = fgArr[i] - cx;
-        let ry = fgArr[i + 1] - cy;
-        let rz = fgArr[i + 2] - cz;
+      for (let i = 0; i < fgDustCount; i++) {
+        const idx = i * 3;
+        let rx = fgArr[idx] - cx;
+        let ry = fgArr[idx + 1] - cy;
+        let rz = fgArr[idx + 2] - cz;
         let dist = Math.sqrt(rx * rx + ry * ry + rz * rz);
         
         if (dist < 0.9) {
-          // Re-spawn outer orbit
-          const angle = Math.random() * Math.PI * 2;
-          const radius = 8 + Math.random() * 6;
-          fgArr[i] = cx + Math.cos(angle) * radius;
-          fgArr[i + 1] = cy + (Math.random() - 0.5) * 10;
-          fgArr[i + 2] = cz + Math.sin(angle) * radius * 0.6 + 1;
+          // Re-spawn along inner Fibonacci spiral
+          const theta = (i + Math.floor(time * 10)) * GOLDEN_ANGLE;
+          const radius = 7.5 + (i % 5) * 1.2;
+          fgArr[idx] = cx + Math.cos(theta) * radius;
+          fgArr[idx + 1] = cy + ((i % 5) - 2) * 1.6;
+          fgArr[idx + 2] = cz + Math.sin(theta) * radius * (1 / PHI) + 0.8;
         } else {
-          // Smooth orbital rotation (slightly faster for foreground)
-          const orbitSpeed = 0.0028 + (1 / Math.max(dist, 2)) * 0.005;
+          const orbitSpeed = 0.0024 + (1 / Math.max(dist, 2)) * 0.0045;
           const cosA = Math.cos(orbitSpeed);
           const sinA = Math.sin(orbitSpeed);
           
           const nextRx = rx * cosA - rz * sinA;
           const nextRz = rx * sinA + rz * cosA;
           
-          // Ultra-slow inward spiral drift (0.15% per frame)
           const inwardRate = 0.9985;
-          fgArr[i] = cx + nextRx * inwardRate;
-          fgArr[i + 1] = cy + ry * 0.9992;
-          fgArr[i + 2] = cz + nextRz * inwardRate;
+          fgArr[idx] = cx + nextRx * inwardRate;
+          fgArr[idx + 1] = cy + ry * 0.9992;
+          fgArr[idx + 2] = cz + nextRz * inwardRate;
         }
       }
       fgDustGeometry.attributes.position.needsUpdate = true;
@@ -337,9 +341,9 @@ export default function Hero() {
       {/* Subtle warm ambient glow */}
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-12 relative z-10">
+      <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 relative z-10">
         
-        {/* Left Column: Text Stack (Pulled smoothly into the 3D Sphere on scroll) */}
+        {/* Left Column: Text Stack (61.8% Major Golden Section) */}
         <motion.div 
           style={{ 
             x: isDesktop ? textX : 0, 
@@ -350,7 +354,7 @@ export default function Hero() {
             rotate: isDesktop ? textRotate : "0deg",
             transformOrigin: isDesktop ? "right center" : "center top"
           }}
-          className="lg:col-span-7 flex flex-col items-start text-left"
+          className="w-full lg:w-[61.8%] flex flex-col items-start text-left"
         >
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -417,8 +421,8 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right Column Spacer (Leaves space for the 3D Sphere rendered in full-screen Canvas) */}
-        <div className="lg:col-span-5 hidden lg:block h-[500px] pointer-events-none" />
+        {/* Right Column Spacer (38.2% Minor Golden Section for 3D Canvas) */}
+        <div className="w-full lg:w-[38.2%] hidden lg:block h-[500px] pointer-events-none" />
 
       </div>
     </section>
