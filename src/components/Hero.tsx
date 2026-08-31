@@ -24,6 +24,7 @@ export default function Hero() {
 
   // Black hole gravitational absorption physics on scroll
   const textX = useTransform(scrollYProgress, [0, 0.75], [0, 240]);
+  const textYMobile = useTransform(scrollYProgress, [0, 0.75], [0, 90]);
   const textScale = useTransform(scrollYProgress, [0, 0.75], [1, 0.2]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
   const textBlur = useTransform(scrollYProgress, [0, 0.65], ["blur(0px)", "blur(12px)"]);
@@ -87,7 +88,7 @@ export default function Hero() {
     const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
     sphereGroup.add(wireMesh);
 
-    // 2. High-Res Soft Circular Particle Texture (No square/pixelated edges)
+    // 2. High-Res Soft Circular Particle Texture
     const createCircleTexture = () => {
       const c = document.createElement('canvas');
       c.width = 64;
@@ -107,45 +108,49 @@ export default function Hero() {
     };
     const circleTexture = createCircleTexture();
 
-    // Layered Cosmic Atmosphere (-15% count: 355 soft glowing particles)
-    // A) Distant Soft Stardust (255 particles)
-    const bgDustCount = 255;
+    // Inward Gravitational Flow Particles (Layered & Refined sizes)
+    // A) Background Accretion Stardust (240 particles)
+    const bgDustCount = 240;
     const bgDustGeometry = new THREE.BufferGeometry();
     const bgDustPositions = new Float32Array(bgDustCount * 3);
     for (let i = 0; i < bgDustCount * 3; i += 3) {
-      bgDustPositions[i] = (Math.random() - 0.5) * 24;
-      bgDustPositions[i + 1] = (Math.random() - 0.5) * 18;
-      bgDustPositions[i + 2] = (Math.random() - 0.5) * 14 - 2;
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 4 + Math.random() * 12;
+      bgDustPositions[i] = Math.cos(angle) * radius;
+      bgDustPositions[i + 1] = (Math.random() - 0.5) * 16;
+      bgDustPositions[i + 2] = Math.sin(angle) * radius * 0.7 - 2;
     }
     bgDustGeometry.setAttribute('position', new THREE.BufferAttribute(bgDustPositions, 3));
     const bgDustMaterial = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.09,
+      size: 0.045, // Refined subtle size
       map: circleTexture || undefined,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.32,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     });
     const bgDust = new THREE.Points(bgDustGeometry, bgDustMaterial);
     scene.add(bgDust);
 
-    // B) Foreground Floating Soft Light Particles (100 particles)
-    const fgDustCount = 100;
+    // B) Foreground Inward Drifting Light Specks (90 particles)
+    const fgDustCount = 90;
     const fgDustGeometry = new THREE.BufferGeometry();
     const fgDustPositions = new Float32Array(fgDustCount * 3);
     for (let i = 0; i < fgDustCount * 3; i += 3) {
-      fgDustPositions[i] = (Math.random() - 0.5) * 16;
-      fgDustPositions[i + 1] = (Math.random() - 0.5) * 14;
-      fgDustPositions[i + 2] = (Math.random() - 0.5) * 8 + 1;
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 3.5 + Math.random() * 9;
+      fgDustPositions[i] = Math.cos(angle) * radius;
+      fgDustPositions[i + 1] = (Math.random() - 0.5) * 12;
+      fgDustPositions[i + 2] = Math.sin(angle) * radius * 0.6 + 1;
     }
     fgDustGeometry.setAttribute('position', new THREE.BufferAttribute(fgDustPositions, 3));
     const fgDustMaterial = new THREE.PointsMaterial({
       color: 0xf5eee4,
-      size: 0.16,
+      size: 0.075, // Refined subtle size
       map: circleTexture || undefined,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.55,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     });
@@ -188,19 +193,67 @@ export default function Hero() {
       // Scroll-driven absorption in 3D world space
       const isDesk = window.innerWidth >= 1024;
       const targetX = isDesk ? (2.4 - currentScroll * 2.2) : 0;
-      const targetY = isDesk ? 0 : (-1.35 - currentScroll * 1.2);
+      // On mobile: sphere rises upward towards the title (+0.75) to engulf it!
+      const targetY = isDesk ? 0 : (-1.35 + currentScroll * 2.1);
       const baseScale = isDesk ? 1 : 0.52;
-      const targetScale = baseScale * (1 + currentScroll * 0.3);
+      const targetScale = baseScale * (1 + currentScroll * 0.4);
       
       sphereGroup.position.x += (targetX - sphereGroup.position.x) * 0.1;
       sphereGroup.position.y += (targetY - sphereGroup.position.y) * 0.1;
       sphereGroup.scale.set(targetScale, targetScale, targetScale);
 
-      // Layered atmosphere smooth cosmic drift
-      bgDust.rotation.y = time * 0.02;
-      bgDust.rotation.x = time * 0.01;
-      fgDust.rotation.y = -time * 0.035;
-      fgDust.rotation.x = time * 0.02;
+      // Gravitational inward suction physics (particles are pulled TOWARDS the sphere center)
+      const centerTarget = sphereGroup.position;
+      
+      // Update background stardust inward suction
+      const bgArr = bgDustGeometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < bgDustCount * 3; i += 3) {
+        const dx = centerTarget.x - bgArr[i];
+        const dy = centerTarget.y - bgArr[i + 1];
+        const dz = centerTarget.z - bgArr[i + 2];
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        
+        if (dist < 0.6) {
+          // Re-spawn far outside
+          const angle = Math.random() * Math.PI * 2;
+          const radius = 10 + Math.random() * 8;
+          bgArr[i] = centerTarget.x + Math.cos(angle) * radius;
+          bgArr[i + 1] = centerTarget.y + (Math.random() - 0.5) * 14;
+          bgArr[i + 2] = centerTarget.z + Math.sin(angle) * radius * 0.7 - 2;
+        } else {
+          // Move towards center + subtle swirling orbit
+          const speed = 0.015;
+          bgArr[i] += (dx / dist) * speed - dy * 0.002;
+          bgArr[i + 1] += (dy / dist) * speed;
+          bgArr[i + 2] += (dz / dist) * speed;
+        }
+      }
+      bgDustGeometry.attributes.position.needsUpdate = true;
+
+      // Update foreground luminous particles inward suction
+      const fgArr = fgDustGeometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < fgDustCount * 3; i += 3) {
+        const dx = centerTarget.x - fgArr[i];
+        const dy = centerTarget.y - fgArr[i + 1];
+        const dz = centerTarget.z - fgArr[i + 2];
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        
+        if (dist < 0.7) {
+          // Re-spawn outside
+          const angle = Math.random() * Math.PI * 2;
+          const radius = 8 + Math.random() * 6;
+          fgArr[i] = centerTarget.x + Math.cos(angle) * radius;
+          fgArr[i + 1] = centerTarget.y + (Math.random() - 0.5) * 10;
+          fgArr[i + 2] = centerTarget.z + Math.sin(angle) * radius * 0.6 + 1;
+        } else {
+          // Move inward towards singularity
+          const speed = 0.024;
+          fgArr[i] += (dx / dist) * speed - dy * 0.003;
+          fgArr[i + 1] += (dy / dist) * speed;
+          fgArr[i + 2] += (dz / dist) * speed;
+        }
+      }
+      fgDustGeometry.attributes.position.needsUpdate = true;
 
       // Camera parallax
       camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.04;
@@ -272,6 +325,7 @@ export default function Hero() {
         <motion.div 
           style={{ 
             x: isDesktop ? textX : 0, 
+            y: isDesktop ? 0 : textYMobile,
             scale: textScale, 
             opacity: textOpacity,
             filter: textBlur,
