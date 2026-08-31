@@ -35,7 +35,7 @@ export default function About() {
             </span>
             <span className="overflow-hidden block">
               <motion.span 
-                className="block font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/40"
+                className="block font-bold text-white"
                 initial={{ y: "100%", opacity: 0 }}
                 animate={isInView ? { y: 0, opacity: 1 } : {}}
                 transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1], delay: 0.3 }}
