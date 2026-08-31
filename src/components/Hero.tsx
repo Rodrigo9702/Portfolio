@@ -56,8 +56,8 @@ export default function Hero() {
     sphereGroup.position.x = isDesktop ? 2.4 : 0;
     sphereGroup.position.y = isDesktop ? 0 : -0.5;
 
-    // 1. Outer Morphing Geometric Wireframe Sphere (Reduced by 15%: 2.0 radius)
-    const wireGeometry = new THREE.IcosahedronGeometry(2.0, 16);
+    // 1. Outer Morphing Geometric Wireframe Sphere (Reduced density & softened tone)
+    const wireGeometry = new THREE.IcosahedronGeometry(2.0, 12);
     const wirePositions = wireGeometry.attributes.position;
     const wireCount = wirePositions.count;
     const origWirePos: THREE.Vector3[] = [];
@@ -69,10 +69,10 @@ export default function Hero() {
     }
 
     const wireMaterial = new THREE.MeshBasicMaterial({
-      color: 0xf5f1ea, // Elegant bone white
+      color: 0xd6cebf, // Soft warm platinum/silver (not blindingly white)
       wireframe: true,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.28, // Softened opacity
     });
     const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
     sphereGroup.add(wireMesh);
@@ -233,10 +233,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl sm:text-7xl md:text-8xl font-bold tracking-tighter text-white uppercase leading-[0.92] mb-8"
           >
-            AI AGENT <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/50">
-              DEVELOPER
-            </span>
+            AI AGENT <br /> DEVELOPER
           </motion.h1>
 
           <motion.div
