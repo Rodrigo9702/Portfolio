@@ -87,9 +87,29 @@ export default function Hero() {
     const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
     sphereGroup.add(wireMesh);
 
-    // 2. Layered Cosmic Atmosphere (420 particles with real 3D depth)
-    // A) Distant Micro Stardust (300 particles)
-    const bgDustCount = 300;
+    // 2. High-Res Soft Circular Particle Texture (No square/pixelated edges)
+    const createCircleTexture = () => {
+      const c = document.createElement('canvas');
+      c.width = 64;
+      c.height = 64;
+      const ctx = c.getContext('2d');
+      if (!ctx) return null;
+      const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0.25, 'rgba(255, 255, 255, 0.85)');
+      gradient.addColorStop(0.65, 'rgba(255, 255, 255, 0.18)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(32, 32, 32, 0, Math.PI * 2);
+      ctx.fill();
+      return new THREE.CanvasTexture(c);
+    };
+    const circleTexture = createCircleTexture();
+
+    // Layered Cosmic Atmosphere (-15% count: 355 soft glowing particles)
+    // A) Distant Soft Stardust (255 particles)
+    const bgDustCount = 255;
     const bgDustGeometry = new THREE.BufferGeometry();
     const bgDustPositions = new Float32Array(bgDustCount * 3);
     for (let i = 0; i < bgDustCount * 3; i += 3) {
@@ -100,15 +120,18 @@ export default function Hero() {
     bgDustGeometry.setAttribute('position', new THREE.BufferAttribute(bgDustPositions, 3));
     const bgDustMaterial = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.022,
+      size: 0.09,
+      map: circleTexture || undefined,
       transparent: true,
-      opacity: 0.38,
+      opacity: 0.35,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
     });
     const bgDust = new THREE.Points(bgDustGeometry, bgDustMaterial);
     scene.add(bgDust);
 
-    // B) Foreground Floating Light Particles (120 particles)
-    const fgDustCount = 120;
+    // B) Foreground Floating Soft Light Particles (100 particles)
+    const fgDustCount = 100;
     const fgDustGeometry = new THREE.BufferGeometry();
     const fgDustPositions = new Float32Array(fgDustCount * 3);
     for (let i = 0; i < fgDustCount * 3; i += 3) {
@@ -119,9 +142,11 @@ export default function Hero() {
     fgDustGeometry.setAttribute('position', new THREE.BufferAttribute(fgDustPositions, 3));
     const fgDustMaterial = new THREE.PointsMaterial({
       color: 0xf5eee4,
-      size: 0.042,
+      size: 0.16,
+      map: circleTexture || undefined,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.6,
+      depthWrite: false,
       blending: THREE.AdditiveBlending,
     });
     const fgDust = new THREE.Points(fgDustGeometry, fgDustMaterial);
@@ -223,6 +248,7 @@ export default function Hero() {
       bgDustMaterial.dispose();
       fgDustGeometry.dispose();
       fgDustMaterial.dispose();
+      circleTexture?.dispose();
     };
   }, []);
 
