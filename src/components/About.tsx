@@ -9,7 +9,7 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-20%" });
 
   return (
-    <section id="about" className="relative w-full py-32 px-6 md:px-20 bg-[#1f1b18] border-t border-white/5">
+    <section id="about" className="relative w-full py-32 px-5 sm:px-8 md:px-20 bg-[#1f1b18] border-t border-white/5">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 md:gap-20 items-start">
         <div className="md:w-1/3" ref={ref}>
           <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight flex flex-col gap-2">

@@ -41,7 +41,7 @@ export default function Navbar() {
           : "bg-transparent py-6"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 flex items-center justify-between">
         <Link 
           href="/" 
           className="text-white font-medium tracking-tight text-base flex items-center gap-2 group"

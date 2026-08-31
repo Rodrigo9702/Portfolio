@@ -33,27 +33,23 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="w-full relative bg-[#1f1b18] text-white overflow-hidden pt-32 pb-16 px-6 md:px-20 border-t border-white/5">
-      
-      {/* Background subtle radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto flex flex-col relative z-10">
+    <section id="contact" className="py-24 md:py-32 px-5 sm:px-8 md:px-20 relative bg-[#1f1b18] overflow-hidden border-t border-white/5">
+      <div className="max-w-7xl mx-auto flex flex-col justify-between min-h-[50vh]">
         
         {/* Main CTA */}
-        <div className="flex flex-col items-center text-center mb-28 w-full max-w-4xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto my-auto py-12 md:py-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.8 }}
             className="w-full flex flex-col items-center"
           >
             <span className="text-xs font-mono text-white/50 tracking-wider block mb-4">¿TIENES UN PROYECTO EN MENTE?</span>
-            <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-white uppercase leading-[0.95] mb-8">
+            <h2 className="text-3xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-white uppercase leading-[0.95] mb-6 sm:mb-8">
               Iniciemos una <br /> conversación
             </h2>
-            <p className="text-base sm:text-lg text-white/70 max-w-lg mb-10 font-light">
+            <p className="text-sm sm:text-lg text-white/70 max-w-lg mb-8 sm:mb-10 font-light">
               Disponible para colaborar en desarrollo de agentes de IA, integraciones y soluciones a medida.
             </p>
 
@@ -66,10 +62,10 @@ export default function Contact() {
               >
                 <a 
                   href="mailto:castillorod.n@gmail.com" 
-                  className="flex items-center justify-center gap-3 bg-white text-black px-8 py-4 rounded-full text-base md:text-lg font-medium hover:bg-white/90 active:scale-[0.98] transition-all w-full sm:w-auto shadow-xl"
+                  className="flex items-center justify-center gap-3 bg-white text-black px-5 sm:px-8 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg font-medium hover:bg-white/90 active:scale-[0.98] transition-all w-full sm:w-auto shadow-xl"
                 >
-                  <span>castillorod.n@gmail.com</span>
-                  <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center">
+                  <span className="truncate">castillorod.n@gmail.com</span>
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-black text-white flex items-center justify-center shrink-0">
                     <ArrowRight className="w-3.5 h-3.5 -rotate-45" />
                   </div>
                 </a>
@@ -77,7 +73,7 @@ export default function Contact() {
 
               <button
                 onClick={copyEmail}
-                className="flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/15 bg-white/[0.03] text-white/80 hover:text-white hover:border-white/30 active:scale-[0.98] transition-all text-sm font-mono"
+                className="flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 rounded-full border border-white/15 bg-white/[0.03] text-white/80 hover:text-white hover:border-white/30 active:scale-[0.98] transition-all text-xs sm:text-sm font-mono w-full sm:w-auto"
                 title="Copiar email al portapapeles"
               >
                 {copied ? (

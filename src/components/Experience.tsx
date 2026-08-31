@@ -120,7 +120,7 @@ export default function Experience() {
     <section 
       id="experience" 
       onMouseMove={handleMouseMove}
-      className="relative w-full py-32 px-6 md:px-20 bg-[#1f1b18] text-white border-t border-white/5"
+      className="relative w-full py-32 px-5 sm:px-8 md:px-20 bg-[#1f1b18] text-white border-t border-white/5"
     >
       
       {/* Floating Certificate Preview */}

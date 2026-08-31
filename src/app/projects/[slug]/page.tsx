@@ -35,27 +35,27 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
 
   return (
-    <main className="min-h-screen bg-[#1f1b18] text-white">
+    <article className="min-h-screen bg-[#1f1b18] text-white pt-28 sm:pt-32 pb-24 px-5 sm:px-8 md:px-20 relative overflow-hidden">
       
       {/* Background ambient lighting */}
       <div 
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full blur-[140px] opacity-10 pointer-events-none"
-        style={{ backgroundColor: project.color || '#ffffff' }}
+        className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full blur-[140px] pointer-events-none opacity-20"
+        style={{ backgroundColor: project.color }} 
       />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-20 pt-32 pb-24 relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Navigation back */}
         <Link 
           href="/#projects" 
-          className="inline-flex items-center gap-2.5 text-white/60 hover:text-white transition-colors mb-16 font-mono tracking-wider text-xs group"
+          className="inline-flex items-center gap-2.5 text-white/60 hover:text-white transition-colors mb-12 sm:mb-16 font-mono tracking-wider text-xs group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span>VOLVER A PROYECTOS</span>
         </Link>
 
         {/* Hero Header */}
-        <header className="mb-20">
+        <header className="mb-16 sm:mb-20">
           <div className="flex flex-wrap items-center gap-3 mb-6 font-mono text-xs">
             <span className="px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-white/90">
               {project.category}
@@ -74,11 +74,11 @@ export default async function ProjectPage({ params }: { params: { slug: string }
             )}
           </div>
           
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tighter mb-8 text-white">
+          <h1 className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tighter mb-6 sm:mb-8 text-white">
             {project.title}
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/90 max-w-4xl font-light leading-relaxed mb-12">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-4xl font-light leading-relaxed mb-10 sm:mb-12">
             {project.fullDescription}
           </p>
 
@@ -165,6 +165,6 @@ export default async function ProjectPage({ params }: { params: { slug: string }
         </footer>
 
       </div>
-    </main>
+    </article>
   );
 }

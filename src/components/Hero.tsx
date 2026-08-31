@@ -8,6 +8,14 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [time, setTime] = useState<string>("");
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -187,7 +195,7 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative w-full min-h-[100dvh] flex items-center overflow-hidden pt-28 pb-20 px-6 md:px-20 bg-[#1f1b18]"
+      className="relative w-full min-h-[100dvh] flex items-center overflow-hidden pt-28 pb-20 px-5 sm:px-8 md:px-20 bg-[#1f1b18]"
     >
       {/* Full-screen 3D Canvas (No HTML bounding box cut-offs) */}
       <canvas 
@@ -198,17 +206,17 @@ export default function Hero() {
       {/* Subtle warm ambient glow */}
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-12 relative z-10">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-12 relative z-10">
         
         {/* Left Column: Text Stack (Pulled smoothly into the 3D Sphere on scroll) */}
         <motion.div 
           style={{ 
-            x: textX, 
+            x: isDesktop ? textX : 0, 
             scale: textScale, 
             opacity: textOpacity,
             filter: textBlur,
-            rotate: textRotate,
-            transformOrigin: "right center"
+            rotate: isDesktop ? textRotate : "0deg",
+            transformOrigin: isDesktop ? "right center" : "center top"
           }}
           className="lg:col-span-7 flex flex-col items-start text-left"
         >
@@ -216,13 +224,13 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-2.5 bg-white/[0.04] border border-white/10 px-4 py-1.5 rounded-full mb-8 backdrop-blur-md"
+            className="flex items-center gap-2.5 bg-white/[0.04] border border-white/10 px-3.5 sm:px-4 py-1.5 rounded-full mb-6 sm:mb-8 backdrop-blur-md"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span className="text-white/80 text-xs font-mono">
+            <span className="text-white/80 text-[11px] sm:text-xs font-mono">
               Disponible para proyectos · Buenos Aires {time ? `(${time}hs)` : ""}
             </span>
           </motion.div>
@@ -231,7 +239,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl sm:text-7xl md:text-8xl font-bold tracking-tighter text-white uppercase leading-[0.92] mb-8"
+            className="text-[2.5rem] sm:text-6xl md:text-8xl font-bold tracking-tighter text-white uppercase leading-[0.93] mb-6 sm:mb-8"
           >
             AI AGENT <br /> DEVELOPER
           </motion.h1>
@@ -240,12 +248,12 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col gap-4 text-white/80 max-w-xl text-base md:text-lg font-light leading-relaxed mb-12"
+            className="flex flex-col gap-4 text-white/80 max-w-xl text-sm sm:text-base md:text-lg font-light leading-relaxed mb-10 sm:mb-12"
           >
             <p>
               Especialista en sistemas conversacionales avanzados, orquestación de flujos agénticos (LLMs) y arquitectura de software escalable.
             </p>
-            <p className="text-sm font-mono text-white/60">
+            <p className="text-xs sm:text-sm font-mono text-white/60">
               Construyendo en <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">GitHub</a> · Trayectoria en <a href="https://www.linkedin.com/in/rodrigoncastillo/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">LinkedIn</a>
             </p>
           </motion.div>
