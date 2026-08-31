@@ -15,14 +15,11 @@ export default function Hero() {
   });
 
   // Black hole gravitational absorption physics on scroll
-  const textX = useTransform(scrollYProgress, [0, 0.7], [0, 220]);
-  const textScale = useTransform(scrollYProgress, [0, 0.7], [1, 0.25]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const textBlur = useTransform(scrollYProgress, [0, 0.6], ["blur(0px)", "blur(14px)"]);
-  const textRotate = useTransform(scrollYProgress, [0, 0.7], ["0deg", "6deg"]);
-
-  const sphereScale = useTransform(scrollYProgress, [0, 0.7], [1, 1.25]);
-  const sphereX = useTransform(scrollYProgress, [0, 0.7], [0, -60]);
+  const textX = useTransform(scrollYProgress, [0, 0.75], [0, 240]);
+  const textScale = useTransform(scrollYProgress, [0, 0.75], [1, 0.2]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
+  const textBlur = useTransform(scrollYProgress, [0, 0.65], ["blur(0px)", "blur(12px)"]);
+  const textRotate = useTransform(scrollYProgress, [0, 0.75], ["0deg", "8deg"]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -44,24 +41,24 @@ export default function Hero() {
 
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     
-    const updateRendererSize = () => {
-      if (!canvas) return;
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height, false);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    };
-    updateRendererSize();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Unified Particle Entity (Clean single-body morphing constellation)
-    const particleGeometry = new THREE.IcosahedronGeometry(2.35, 26);
+    // Master group for the entire dual-sphere system
+    const sphereGroup = new THREE.Group();
+    scene.add(sphereGroup);
+
+    // Initial position based on screen width (right on desktop, centered on mobile)
+    const isDesktop = window.innerWidth >= 1024;
+    sphereGroup.position.x = isDesktop ? 2.4 : 0;
+    sphereGroup.position.y = isDesktop ? 0 : -0.5;
+
+    // 1. Outer Morphing Particle Sphere (High Density)
+    const particleGeometry = new THREE.IcosahedronGeometry(2.35, 24);
     const particleCount = particleGeometry.attributes.position.count;
-    
     const origParticlePos: THREE.Vector3[] = [];
     const particlePositions = particleGeometry.attributes.position;
     const vertex = new THREE.Vector3();
@@ -72,24 +69,42 @@ export default function Hero() {
     }
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0xf3efe6,
-      size: 0.042,
+      color: 0xf6f3ed,
+      size: 0.038,
       transparent: true,
       opacity: 0.9,
       blending: THREE.AdditiveBlending,
     });
 
     const particles = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particles);
+    sphereGroup.add(particles);
 
-    // Subtle ambient dust specks
-    const dustCount = 140;
+    // 2. Inner Concentric Wireframe Cage (Harmonized, perfectly scaled inside)
+    const innerGeometry = new THREE.IcosahedronGeometry(2.05, 8);
+    const innerPositions = innerGeometry.attributes.position;
+    const origInnerPos: THREE.Vector3[] = [];
+    for (let i = 0; i < innerPositions.count; i++) {
+      vertex.fromBufferAttribute(innerPositions, i);
+      origInnerPos.push(vertex.clone());
+    }
+
+    const innerMaterial = new THREE.MeshBasicMaterial({
+      color: 0xe8e2d8,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.22,
+    });
+    const innerMesh = new THREE.Mesh(innerGeometry, innerMaterial);
+    sphereGroup.add(innerMesh);
+
+    // 3. Ambient Floating Stardust
+    const dustCount = 160;
     const dustGeometry = new THREE.BufferGeometry();
     const dustPositions = new Float32Array(dustCount * 3);
     for (let i = 0; i < dustCount * 3; i += 3) {
-      dustPositions[i] = (Math.random() - 0.5) * 10;
-      dustPositions[i + 1] = (Math.random() - 0.5) * 10;
-      dustPositions[i + 2] = (Math.random() - 0.5) * 8;
+      dustPositions[i] = (Math.random() - 0.5) * 14;
+      dustPositions[i + 1] = (Math.random() - 0.5) * 14;
+      dustPositions[i + 2] = (Math.random() - 0.5) * 10;
     }
     dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
     const dustMaterial = new THREE.PointsMaterial({
@@ -101,45 +116,67 @@ export default function Hero() {
     const dust = new THREE.Points(dustGeometry, dustMaterial);
     scene.add(dust);
 
-    camera.position.z = 7.5;
+    camera.position.z = 8.2;
 
     let mouseX = 0;
     let mouseY = 0;
     let targetRotationX = 0;
     let targetRotationY = 0;
+    let currentScroll = 0;
     const clock = new THREE.Clock();
     let animationFrameId: number;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-      const time = clock.getElapsedTime() * 0.8;
+      const time = clock.getElapsedTime() * 0.75;
 
-      // Harmonic undulating wave displacement
+      // Outer particle morphing with harmonic waves
       for (let i = 0; i < particleCount; i++) {
         const v = origParticlePos[i];
         const offset = 
-          Math.sin(v.x * 1.6 + time) * 0.09 + 
-          Math.cos(v.y * 1.6 + time * 1.1) * 0.09 + 
-          Math.sin(v.z * 1.6 + time * 0.9) * 0.09;
+          Math.sin(v.x * 1.6 + time) * 0.08 + 
+          Math.cos(v.y * 1.6 + time * 1.1) * 0.08 + 
+          Math.sin(v.z * 1.6 + time * 0.9) * 0.08;
         const ratio = 1 + offset;
         particlePositions.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
       }
       particleGeometry.attributes.position.needsUpdate = true;
 
-      // Continuous rotational orbit
+      // Inner wireframe morphing synchronously (exact same wave phase so they never collide)
+      for (let i = 0; i < innerPositions.count; i++) {
+        const v = origInnerPos[i];
+        const offset = 
+          Math.sin(v.x * 1.6 + time) * 0.08 + 
+          Math.cos(v.y * 1.6 + time * 1.1) * 0.08 + 
+          Math.sin(v.z * 1.6 + time * 0.9) * 0.08;
+        const ratio = 1 + offset;
+        innerPositions.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
+      }
+      innerGeometry.attributes.position.needsUpdate = true;
+
+      // Continuous dual-spin
       targetRotationY += 0.002;
-      targetRotationX += 0.001;
+      targetRotationX += 0.0008;
 
-      particles.rotation.y += (targetRotationY + mouseX * 0.4 - particles.rotation.y) * 0.05;
-      particles.rotation.x += (targetRotationX - mouseY * 0.4 - particles.rotation.x) * 0.05;
+      sphereGroup.rotation.y += (targetRotationY + mouseX * 0.35 - sphereGroup.rotation.y) * 0.05;
+      sphereGroup.rotation.x += (targetRotationX - mouseY * 0.35 - sphereGroup.rotation.x) * 0.05;
+      innerMesh.rotation.y -= 0.001;
 
-      dust.rotation.y = time * 0.04;
-      dust.rotation.x = time * 0.02;
+      // Scroll-driven Black Hole absorption in 3D world space
+      // Interpolate current scroll progress smoothly
+      const targetX = (window.innerWidth >= 1024) ? (2.4 - currentScroll * 2.2) : 0;
+      const targetScale = 1 + currentScroll * 0.35;
+      sphereGroup.position.x += (targetX - sphereGroup.position.x) * 0.1;
+      sphereGroup.scale.set(targetScale, targetScale, targetScale);
+
+      // Dust motion
+      dust.rotation.y = time * 0.03;
+      dust.rotation.x = time * 0.015;
 
       // Camera parallax
       camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.04;
       camera.position.y += (-mouseY * 0.8 - camera.position.y) * 0.04;
-      camera.lookAt(scene.position);
+      camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
     };
@@ -150,16 +187,34 @@ export default function Hero() {
       mouseY = (event.clientY / window.innerHeight) * 2 - 1;
     };
 
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      const desktop = window.innerWidth >= 1024;
+      sphereGroup.position.x = desktop ? 2.4 : 0;
+      sphereGroup.position.y = desktop ? 0 : -0.5;
+    };
+
+    const handleScroll = () => {
+      const scrollMax = window.innerHeight;
+      currentScroll = Math.min(Math.max(window.scrollY / scrollMax, 0), 1);
+    };
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('resize', updateRendererSize);
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', updateRendererSize);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
       renderer.dispose();
       particleGeometry.dispose();
       particleMaterial.dispose();
+      innerGeometry.dispose();
+      innerMaterial.dispose();
       dustGeometry.dispose();
       dustMaterial.dispose();
     };
@@ -168,14 +223,20 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative w-full min-h-[100dvh] flex items-center overflow-hidden pt-28 pb-16 px-6 md:px-20 bg-[#1f1b18]"
+      className="relative w-full min-h-[100dvh] flex items-center overflow-hidden pt-28 pb-20 px-6 md:px-20 bg-[#1f1b18]"
     >
-      {/* Background ambient lighting */}
+      {/* Full-screen 3D Canvas (No HTML bounding box cut-offs) */}
+      <canvas 
+        ref={canvasRef} 
+        className="absolute inset-0 w-full h-full pointer-events-none z-0" 
+      />
+
+      {/* Subtle warm ambient glow */}
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-12 relative z-10">
         
-        {/* Left Column: Text & Value Prop (Pulled into black hole on scroll) */}
+        {/* Left Column: Text Stack (Pulled smoothly into the 3D Sphere on scroll) */}
         <motion.div 
           style={{ 
             x: textX, 
@@ -218,7 +279,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col gap-4 text-white/80 max-w-xl text-base md:text-lg font-light leading-relaxed mb-10"
+            className="flex flex-col gap-4 text-white/80 max-w-xl text-base md:text-lg font-light leading-relaxed mb-12"
           >
             <p>
               Especialista en sistemas conversacionales avanzados, orquestación de flujos agénticos (LLMs) y arquitectura de software escalable.
@@ -228,36 +289,32 @@ export default function Hero() {
             </p>
           </motion.div>
 
+          {/* Vertical Downward Scroll Indicator */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="flex items-center gap-3 cursor-pointer group pt-2"
+            className="flex flex-col items-start gap-3 cursor-pointer group"
             onClick={() => {
               const aboutSection = document.getElementById("about");
               aboutSection?.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <span className="text-white/50 text-[11px] tracking-[0.2em] uppercase font-mono group-hover:text-white transition-colors">
-              Desliza para explorar
+            <span className="text-white/50 text-[10px] tracking-[0.2em] uppercase font-mono group-hover:text-white transition-colors">
+              Desliza para explorar ↓
             </span>
-            <div className="w-10 h-[1px] bg-white/20 relative overflow-hidden group-hover:w-16 transition-all duration-300">
+            <div className="w-[1px] h-10 bg-white/20 relative overflow-hidden ml-4">
               <motion.div 
-                className="absolute top-0 left-0 h-full w-1/2 bg-white"
-                animate={{ x: [-20, 40] }}
-                transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+                className="absolute top-0 left-0 w-full h-1/2 bg-white"
+                animate={{ y: [-12, 32], opacity: [0, 1, 0] }}
+                transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
               />
             </div>
           </motion.div>
         </motion.div>
 
-        {/* Right Column: 3D Black Hole Singularity Particle Sphere */}
-        <motion.div 
-          style={{ scale: sphereScale, x: sphereX }}
-          className="lg:col-span-5 relative w-full h-[380px] sm:h-[480px] lg:h-[580px] flex items-center justify-center pointer-events-auto"
-        >
-          <canvas ref={canvasRef} className="w-full h-full block" />
-        </motion.div>
+        {/* Right Column Spacer (Leaves space for the 3D Sphere rendered in full-screen Canvas) */}
+        <div className="lg:col-span-5 hidden lg:block h-[500px] pointer-events-none" />
 
       </div>
     </section>
