@@ -22,7 +22,6 @@ export default function Projects() {
   return (
     <section 
       id="projects" 
-      ref={containerRef}
       onMouseMove={handleMouseMove}
       className="py-24 md:py-32 px-5 sm:px-8 md:px-20 relative bg-[#1f1b18] overflow-hidden border-t border-white/5"
     >
