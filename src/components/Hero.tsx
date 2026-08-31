@@ -85,24 +85,45 @@ export default function Hero() {
     const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
     sphereGroup.add(wireMesh);
 
-    // 2. Ambient Stardust (+10% particles: 160)
-    const dustCount = 160;
-    const dustGeometry = new THREE.BufferGeometry();
-    const dustPositions = new Float32Array(dustCount * 3);
-    for (let i = 0; i < dustCount * 3; i += 3) {
-      dustPositions[i] = (Math.random() - 0.5) * 14;
-      dustPositions[i + 1] = (Math.random() - 0.5) * 14;
-      dustPositions[i + 2] = (Math.random() - 0.5) * 10;
+    // 2. Layered Cosmic Atmosphere (420 particles with real 3D depth)
+    // A) Distant Micro Stardust (300 particles)
+    const bgDustCount = 300;
+    const bgDustGeometry = new THREE.BufferGeometry();
+    const bgDustPositions = new Float32Array(bgDustCount * 3);
+    for (let i = 0; i < bgDustCount * 3; i += 3) {
+      bgDustPositions[i] = (Math.random() - 0.5) * 24;
+      bgDustPositions[i + 1] = (Math.random() - 0.5) * 18;
+      bgDustPositions[i + 2] = (Math.random() - 0.5) * 14 - 2;
     }
-    dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-    const dustMaterial = new THREE.PointsMaterial({
+    bgDustGeometry.setAttribute('position', new THREE.BufferAttribute(bgDustPositions, 3));
+    const bgDustMaterial = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.02,
+      size: 0.022,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.38,
     });
-    const dust = new THREE.Points(dustGeometry, dustMaterial);
-    scene.add(dust);
+    const bgDust = new THREE.Points(bgDustGeometry, bgDustMaterial);
+    scene.add(bgDust);
+
+    // B) Foreground Floating Light Particles (120 particles)
+    const fgDustCount = 120;
+    const fgDustGeometry = new THREE.BufferGeometry();
+    const fgDustPositions = new Float32Array(fgDustCount * 3);
+    for (let i = 0; i < fgDustCount * 3; i += 3) {
+      fgDustPositions[i] = (Math.random() - 0.5) * 16;
+      fgDustPositions[i + 1] = (Math.random() - 0.5) * 14;
+      fgDustPositions[i + 2] = (Math.random() - 0.5) * 8 + 1;
+    }
+    fgDustGeometry.setAttribute('position', new THREE.BufferAttribute(fgDustPositions, 3));
+    const fgDustMaterial = new THREE.PointsMaterial({
+      color: 0xf5eee4,
+      size: 0.042,
+      transparent: true,
+      opacity: 0.65,
+      blending: THREE.AdditiveBlending,
+    });
+    const fgDust = new THREE.Points(fgDustGeometry, fgDustMaterial);
+    scene.add(fgDust);
 
     camera.position.z = 8.2;
 
@@ -143,9 +164,11 @@ export default function Hero() {
       sphereGroup.position.x += (targetX - sphereGroup.position.x) * 0.1;
       sphereGroup.scale.set(targetScale, targetScale, targetScale);
 
-      // Dust motion
-      dust.rotation.y = time * 0.03;
-      dust.rotation.x = time * 0.015;
+      // Layered atmosphere smooth cosmic drift
+      bgDust.rotation.y = time * 0.02;
+      bgDust.rotation.x = time * 0.01;
+      fgDust.rotation.y = -time * 0.035;
+      fgDust.rotation.x = time * 0.02;
 
       // Camera parallax
       camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.04;
@@ -187,8 +210,10 @@ export default function Hero() {
       renderer.dispose();
       wireGeometry.dispose();
       wireMaterial.dispose();
-      dustGeometry.dispose();
-      dustMaterial.dispose();
+      bgDustGeometry.dispose();
+      bgDustMaterial.dispose();
+      fgDustGeometry.dispose();
+      fgDustMaterial.dispose();
     };
   }, []);
 
