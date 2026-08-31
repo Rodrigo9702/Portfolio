@@ -202,55 +202,73 @@ export default function Hero() {
       sphereGroup.position.y += (targetY - sphereGroup.position.y) * 0.1;
       sphereGroup.scale.set(targetScale, targetScale, targetScale);
 
-      // Gravitational inward suction physics (particles are pulled TOWARDS the sphere center)
-      const centerTarget = sphereGroup.position;
+      // Gravitational Orbital Accretion Physics (Hypnotic slow celestial orbits with gentle inward drift)
+      const cx = sphereGroup.position.x;
+      const cy = sphereGroup.position.y;
+      const cz = sphereGroup.position.z;
       
-      // Update background stardust inward suction
+      // Update background stardust orbital drift
       const bgArr = bgDustGeometry.attributes.position.array as Float32Array;
       for (let i = 0; i < bgDustCount * 3; i += 3) {
-        const dx = centerTarget.x - bgArr[i];
-        const dy = centerTarget.y - bgArr[i + 1];
-        const dz = centerTarget.z - bgArr[i + 2];
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        let rx = bgArr[i] - cx;
+        let ry = bgArr[i + 1] - cy;
+        let rz = bgArr[i + 2] - cz;
+        let dist = Math.sqrt(rx * rx + ry * ry + rz * rz);
         
-        if (dist < 0.6) {
-          // Re-spawn far outside
+        if (dist < 0.8) {
+          // Re-spawn far outer orbit
           const angle = Math.random() * Math.PI * 2;
           const radius = 10 + Math.random() * 8;
-          bgArr[i] = centerTarget.x + Math.cos(angle) * radius;
-          bgArr[i + 1] = centerTarget.y + (Math.random() - 0.5) * 14;
-          bgArr[i + 2] = centerTarget.z + Math.sin(angle) * radius * 0.7 - 2;
+          bgArr[i] = cx + Math.cos(angle) * radius;
+          bgArr[i + 1] = cy + (Math.random() - 0.5) * 14;
+          bgArr[i + 2] = cz + Math.sin(angle) * radius * 0.7 - 2;
         } else {
-          // Move towards center + subtle swirling orbit
-          const speed = 0.015;
-          bgArr[i] += (dx / dist) * speed - dy * 0.002;
-          bgArr[i + 1] += (dy / dist) * speed;
-          bgArr[i + 2] += (dz / dist) * speed;
+          // Gentle Keplerian orbital rotation around sphere
+          const orbitSpeed = 0.0018 + (1 / Math.max(dist, 2)) * 0.0035;
+          const cosA = Math.cos(orbitSpeed);
+          const sinA = Math.sin(orbitSpeed);
+          
+          const nextRx = rx * cosA - rz * sinA;
+          const nextRz = rx * sinA + rz * cosA;
+          
+          // Ultra-slow inward spiral drift (0.12% per frame)
+          const inwardRate = 0.9988;
+          bgArr[i] = cx + nextRx * inwardRate;
+          bgArr[i + 1] = cy + ry * 0.9995;
+          bgArr[i + 2] = cz + nextRz * inwardRate;
         }
       }
       bgDustGeometry.attributes.position.needsUpdate = true;
 
-      // Update foreground luminous particles inward suction
+      // Update foreground luminous particles orbital drift
       const fgArr = fgDustGeometry.attributes.position.array as Float32Array;
       for (let i = 0; i < fgDustCount * 3; i += 3) {
-        const dx = centerTarget.x - fgArr[i];
-        const dy = centerTarget.y - fgArr[i + 1];
-        const dz = centerTarget.z - fgArr[i + 2];
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        let rx = fgArr[i] - cx;
+        let ry = fgArr[i + 1] - cy;
+        let rz = fgArr[i + 2] - cz;
+        let dist = Math.sqrt(rx * rx + ry * ry + rz * rz);
         
-        if (dist < 0.7) {
-          // Re-spawn outside
+        if (dist < 0.9) {
+          // Re-spawn outer orbit
           const angle = Math.random() * Math.PI * 2;
           const radius = 8 + Math.random() * 6;
-          fgArr[i] = centerTarget.x + Math.cos(angle) * radius;
-          fgArr[i + 1] = centerTarget.y + (Math.random() - 0.5) * 10;
-          fgArr[i + 2] = centerTarget.z + Math.sin(angle) * radius * 0.6 + 1;
+          fgArr[i] = cx + Math.cos(angle) * radius;
+          fgArr[i + 1] = cy + (Math.random() - 0.5) * 10;
+          fgArr[i + 2] = cz + Math.sin(angle) * radius * 0.6 + 1;
         } else {
-          // Move inward towards singularity
-          const speed = 0.024;
-          fgArr[i] += (dx / dist) * speed - dy * 0.003;
-          fgArr[i + 1] += (dy / dist) * speed;
-          fgArr[i + 2] += (dz / dist) * speed;
+          // Smooth orbital rotation (slightly faster for foreground)
+          const orbitSpeed = 0.0028 + (1 / Math.max(dist, 2)) * 0.005;
+          const cosA = Math.cos(orbitSpeed);
+          const sinA = Math.sin(orbitSpeed);
+          
+          const nextRx = rx * cosA - rz * sinA;
+          const nextRz = rx * sinA + rz * cosA;
+          
+          // Ultra-slow inward spiral drift (0.15% per frame)
+          const inwardRate = 0.9985;
+          fgArr[i] = cx + nextRx * inwardRate;
+          fgArr[i + 1] = cy + ry * 0.9992;
+          fgArr[i + 2] = cz + nextRz * inwardRate;
         }
       }
       fgDustGeometry.attributes.position.needsUpdate = true;
