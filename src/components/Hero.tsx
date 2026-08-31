@@ -33,71 +33,122 @@ export default function Hero() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    // Group to hold all 3D sphere components
+    const sphereGroup = new THREE.Group();
+    scene.add(sphereGroup);
 
-    const pointLight = new THREE.PointLight(0xffffff, 2);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
+    // 1. Organic Outer Particle Cloud (High Detail)
+    const particleGeometry = new THREE.IcosahedronGeometry(2.3, 24);
+    const particleCount = particleGeometry.attributes.position.count;
+    
+    const origParticlePos: THREE.Vector3[] = [];
+    const particlePositions = particleGeometry.attributes.position;
+    const vertex = new THREE.Vector3();
 
-    // Create a sphere
-    const geometry = new THREE.IcosahedronGeometry(2, 20); // High detail
-    const material = new THREE.MeshStandardMaterial({ 
-      color: 0xf9f6ee, // Color hueso
-      wireframe: true,
-      emissive: 0x221f1a, // Slight warm glow
-      roughness: 0.1,
-      metalness: 0.8,
+    for (let i = 0; i < particleCount; i++) {
+      vertex.fromBufferAttribute(particlePositions, i);
+      origParticlePos.push(vertex.clone());
+    }
+
+    const particleMaterial = new THREE.PointsMaterial({
+      color: 0xf5f2eb, // Elegant bone white
+      size: 0.035,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending,
     });
 
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
+    const particles = new THREE.Points(particleGeometry, particleMaterial);
+    sphereGroup.add(particles);
 
-    camera.position.z = 8;
-
-    // Save original positions for animation
-    const positionAttribute = geometry.attributes.position;
-    const vertex = new THREE.Vector3();
-    const originalPositions: THREE.Vector3[] = [];
-    for (let i = 0; i < positionAttribute.count; i++) {
-      vertex.fromBufferAttribute(positionAttribute, i);
-      originalPositions.push(vertex.clone());
+    // 2. Delicate Inner Wireframe Cage
+    const innerGeometry = new THREE.IcosahedronGeometry(2.15, 8);
+    const innerPositions = innerGeometry.attributes.position;
+    const origInnerPos: THREE.Vector3[] = [];
+    for (let i = 0; i < innerPositions.count; i++) {
+      vertex.fromBufferAttribute(innerPositions, i);
+      origInnerPos.push(vertex.clone());
     }
+
+    const innerMaterial = new THREE.MeshBasicMaterial({
+      color: 0xd4cdc5,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.18,
+    });
+    const innerMesh = new THREE.Mesh(innerGeometry, innerMaterial);
+    sphereGroup.add(innerMesh);
+
+    // 3. Ambient floating constellation dust
+    const dustCount = 180;
+    const dustGeometry = new THREE.BufferGeometry();
+    const dustPositions = new Float32Array(dustCount * 3);
+    for (let i = 0; i < dustCount * 3; i += 3) {
+      dustPositions[i] = (Math.random() - 0.5) * 12;
+      dustPositions[i + 1] = (Math.random() - 0.5) * 12;
+      dustPositions[i + 2] = (Math.random() - 0.5) * 8;
+    }
+    dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+    const dustMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.02,
+      transparent: true,
+      opacity: 0.35,
+    });
+    const dust = new THREE.Points(dustGeometry, dustMaterial);
+    scene.add(dust);
+
+    camera.position.z = 8.5;
 
     let mouseX = 0;
     let mouseY = 0;
+    let targetRotationX = 0;
+    let targetRotationY = 0;
     const clock = new THREE.Clock();
-
     let animationFrameId: number;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-      
-      const time = clock.getElapsedTime();
+      const time = clock.getElapsedTime() * 0.7;
 
-      // Animate sphere vertices to breathe/morph
-      for (let i = 0; i < positionAttribute.count; i++) {
-        const v = originalPositions[i];
-        
-        // Simplex noise-like displacement using sine waves
+      // Morph outer particles using complex harmonic waves
+      for (let i = 0; i < particleCount; i++) {
+        const v = origParticlePos[i];
         const offset = 
-          Math.sin(v.x * 2 + time) * 0.1 + 
-          Math.sin(v.y * 2 + time * 1.2) * 0.1 + 
-          Math.sin(v.z * 2 + time * 0.8) * 0.1;
-          
+          Math.sin(v.x * 1.8 + time) * 0.08 + 
+          Math.cos(v.y * 1.8 + time * 1.1) * 0.08 + 
+          Math.sin(v.z * 1.8 + time * 0.9) * 0.08;
         const ratio = 1 + offset;
-        positionAttribute.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
+        particlePositions.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
       }
-      geometry.attributes.position.needsUpdate = true;
+      particleGeometry.attributes.position.needsUpdate = true;
 
-      // Rotate sphere continuously
-      sphere.rotation.y += 0.002;
-      sphere.rotation.x += 0.001;
+      // Morph inner wireframe subtly
+      for (let i = 0; i < innerPositions.count; i++) {
+        const v = origInnerPos[i];
+        const offset = 
+          Math.sin(v.x * 1.4 + time) * 0.06 + 
+          Math.cos(v.y * 1.4 + time * 1.1) * 0.06;
+        const ratio = 1 + offset;
+        innerPositions.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
+      }
+      innerGeometry.attributes.position.needsUpdate = true;
 
-      // Parallax effect based on mouse
-      camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
-      camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
+      // Smooth organic rotation
+      targetRotationY += 0.0015;
+      targetRotationX += 0.0008;
+
+      sphereGroup.rotation.y += (targetRotationY + mouseX * 0.3 - sphereGroup.rotation.y) * 0.05;
+      sphereGroup.rotation.x += (targetRotationX - mouseY * 0.3 - sphereGroup.rotation.x) * 0.05;
+      innerMesh.rotation.y -= 0.001;
+
+      // Floating dust gentle oscillation
+      dust.rotation.y = time * 0.03;
+      dust.rotation.x = time * 0.02;
+
+      // Parallax camera easing
+      camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.04;
+      camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.04;
       camera.lookAt(scene.position);
 
       renderer.render(scene, camera);
@@ -115,7 +166,7 @@ export default function Hero() {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -123,8 +174,12 @@ export default function Hero() {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
-      geometry.dispose();
-      material.dispose();
+      particleGeometry.dispose();
+      particleMaterial.dispose();
+      innerGeometry.dispose();
+      innerMaterial.dispose();
+      dustGeometry.dispose();
+      dustMaterial.dispose();
     };
   }, []);
 

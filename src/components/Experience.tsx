@@ -180,7 +180,7 @@ export default function Experience() {
                   </h3>
                   <span className="text-xs text-white/60 font-mono mt-1 md:mt-0">{exp.date}</span>
                 </div>
-                <h4 className="text-sm font-mono text-emerald-400/90 mb-4">{exp.company}</h4>
+                <h4 className="text-sm font-mono text-white/80 mb-4">{exp.company}</h4>
                 <ul className="space-y-2.5">
                   {exp.desc.map((item, j) => (
                     <li key={j} className="text-white/70 text-sm font-light flex items-start gap-2.5 leading-relaxed">
