@@ -56,27 +56,8 @@ export default function Hero() {
     sphereGroup.position.x = isDesktop ? 2.4 : 0;
     sphereGroup.position.y = isDesktop ? 0 : -0.5;
 
-    // 1. Central Subtle Singularity Dot with Soft Glow
-    const coreGeometry = new THREE.SphereGeometry(0.12, 16, 16);
-    const coreMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-    });
-    const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
-    sphereGroup.add(coreMesh);
-
-    // Subtle soft glow halo
-    const glowGeometry = new THREE.SphereGeometry(0.45, 16, 16);
-    const glowMaterial = new THREE.MeshBasicMaterial({
-      color: 0xf5efe6,
-      transparent: true,
-      opacity: 0.12,
-      blending: THREE.AdditiveBlending,
-    });
-    const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
-    sphereGroup.add(glowMesh);
-
-    // 2. Outer Morphing Geometric Wireframe Sphere
-    const wireGeometry = new THREE.IcosahedronGeometry(2.35, 16);
+    // 1. Outer Morphing Geometric Wireframe Sphere (Reduced by 15%: 2.0 radius)
+    const wireGeometry = new THREE.IcosahedronGeometry(2.0, 16);
     const wirePositions = wireGeometry.attributes.position;
     const wireCount = wirePositions.count;
     const origWirePos: THREE.Vector3[] = [];
@@ -96,8 +77,8 @@ export default function Hero() {
     const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
     sphereGroup.add(wireMesh);
 
-    // 3. Ambient Stardust
-    const dustCount = 140;
+    // 2. Ambient Stardust (+10% particles: 160)
+    const dustCount = 160;
     const dustGeometry = new THREE.BufferGeometry();
     const dustPositions = new Float32Array(dustCount * 3);
     for (let i = 0; i < dustCount * 3; i += 3) {
@@ -140,10 +121,6 @@ export default function Hero() {
         wirePositions.setXYZ(i, v.x * ratio, v.y * ratio, v.z * ratio);
       }
       wireGeometry.attributes.position.needsUpdate = true;
-
-      // Gentle glow breathing
-      const glowScale = 1 + Math.sin(time * 2) * 0.12;
-      glowMesh.scale.set(glowScale, glowScale, glowScale);
 
       // Continuous rotation
       targetRotationY += 0.002;
@@ -200,10 +177,6 @@ export default function Hero() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
       renderer.dispose();
-      coreGeometry.dispose();
-      coreMaterial.dispose();
-      glowGeometry.dispose();
-      glowMaterial.dispose();
       wireGeometry.dispose();
       wireMaterial.dispose();
       dustGeometry.dispose();
