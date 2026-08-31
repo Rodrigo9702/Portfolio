@@ -56,29 +56,24 @@ export default function Hero() {
     sphereGroup.position.x = isDesktop ? 2.4 : 0;
     sphereGroup.position.y = isDesktop ? 0 : -0.5;
 
-    // 1. Central Singularity Core (Black Hole Nucleus)
-    const coreGeometry = new THREE.SphereGeometry(0.85, 32, 32);
-    const coreMaterial = new THREE.MeshStandardMaterial({
-      color: 0x0a0908, // Obsidian deep void
-      emissive: 0x1a1612, // Subtle dark warm rim
-      roughness: 0.1,
-      metalness: 0.9,
+    // 1. Central Subtle Singularity Dot with Soft Glow
+    const coreGeometry = new THREE.SphereGeometry(0.12, 16, 16);
+    const coreMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
     });
     const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
     sphereGroup.add(coreMesh);
 
-    // Subtle event-horizon accretion glow ring
-    const ringGeometry = new THREE.RingGeometry(0.88, 1.05, 32);
-    const ringMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
+    // Subtle soft glow halo
+    const glowGeometry = new THREE.SphereGeometry(0.45, 16, 16);
+    const glowMaterial = new THREE.MeshBasicMaterial({
+      color: 0xf5efe6,
       transparent: true,
-      opacity: 0.15,
-      side: THREE.DoubleSide,
+      opacity: 0.12,
       blending: THREE.AdditiveBlending,
     });
-    const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
-    ringMesh.rotation.x = Math.PI / 2;
-    sphereGroup.add(ringMesh);
+    const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+    sphereGroup.add(glowMesh);
 
     // 2. Outer Morphing Geometric Wireframe Sphere
     const wireGeometry = new THREE.IcosahedronGeometry(2.35, 16);
@@ -120,13 +115,6 @@ export default function Hero() {
     const dust = new THREE.Points(dustGeometry, dustMaterial);
     scene.add(dust);
 
-    // Lights for the singularity core
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-    scene.add(ambientLight);
-    const pointLight = new THREE.PointLight(0xffffff, 2, 20);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
-
     camera.position.z = 8.2;
 
     let mouseX = 0;
@@ -153,10 +141,9 @@ export default function Hero() {
       }
       wireGeometry.attributes.position.needsUpdate = true;
 
-      // Singularity core pulse
-      const corePulse = 1 + Math.sin(time * 2) * 0.03;
-      coreMesh.scale.set(corePulse, corePulse, corePulse);
-      ringMesh.rotation.z += 0.005;
+      // Gentle glow breathing
+      const glowScale = 1 + Math.sin(time * 2) * 0.12;
+      glowMesh.scale.set(glowScale, glowScale, glowScale);
 
       // Continuous rotation
       targetRotationY += 0.002;
@@ -215,8 +202,8 @@ export default function Hero() {
       renderer.dispose();
       coreGeometry.dispose();
       coreMaterial.dispose();
-      ringGeometry.dispose();
-      ringMaterial.dispose();
+      glowGeometry.dispose();
+      glowMaterial.dispose();
       wireGeometry.dispose();
       wireMaterial.dispose();
       dustGeometry.dispose();
