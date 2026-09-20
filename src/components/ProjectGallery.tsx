@@ -1,8 +1,5 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-
 type GalleryItem = {
   type: string;
   src: string;
@@ -35,19 +32,11 @@ function GalleryImage({
   idx: number;
   accentColor: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
-
   return (
-    <div className="flex flex-col gap-6" ref={ref}>
+    <div className="flex flex-col gap-6">
       
       {/* Framed Browser Mockup Window */}
-      <div className="w-full rounded-2xl overflow-hidden bg-[#161311] border border-white/10 shadow-2xl relative group">
+      <div className="w-full rounded-2xl overflow-hidden bg-[#161311] border border-white/10 shadow-2xl relative group transition-all duration-300 hover:border-white/20">
         
         {/* Browser Top Chrome Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-white/[0.03] border-b border-white/10 backdrop-blur-sm">
@@ -63,7 +52,7 @@ function GalleryImage({
         </div>
 
         {/* Media Container */}
-        <div className="relative overflow-hidden bg-[#111] min-h-[220px]">
+        <div className="relative bg-[#111] w-full">
           {item.type === 'video' ? (
             <video 
               src={item.src} 
@@ -72,14 +61,13 @@ function GalleryImage({
               loop 
               muted 
               playsInline
-              className="w-full h-auto object-cover relative z-10"
+              className="w-full h-auto block relative z-10"
             />
           ) : (
-            <motion.img 
+            <img 
               src={item.src} 
               alt={item.caption}
-              className="w-full h-auto object-cover"
-              style={{ y, scale: 1.08 }}
+              className="w-full h-auto block"
             />
           )}
 
