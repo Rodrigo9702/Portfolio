@@ -2,24 +2,45 @@ export const PROJECTS = [
   {
     slug: "epifron",
     title: "Epifron",
-    category: "Software",
+    category: "Fintech & AI",
     year: "2026",
-    description: "Plataforma de seguimiento de finanzas y gastos personales. Diseñada para ofrecer insights detallados y mantener un control total de la economía personal mediante interacciones conversacionales con IA.",
+    description: "Sistema operativo financiero bimonetario (ARS/USD). Control patrimonial, tracking de cuotas y categorización de gastos mediante asistente conversacional con IA.",
     color: "#10b981", // Emerald Green (Finances)
-    techStack: ["React", "Node.js", "Python", "Groq / LLaMA 3.3", "SQLite", "Telegram API"],
+    techStack: ["Python 3.12", "Flask", "SQLite WAL", "Tailwind CSS", "Groq / LLaMA 3.3", "Telegram Bot API"],
     video: "/media/epifron-chat.webm",
     poster: "/media/epifron-chat-poster.webp",
     image: "/media/epifron-dash.webp",
     gallery: [
-      { type: 'video', src: '/media/epifron-chat.webm', poster: '/media/epifron-chat-poster.webp', caption: 'Demo del Chat de Finanzas (Groq/Llama 3.3)' },
-      { type: 'image', src: '/media/epifron-dash.webp', caption: 'Dashboard General: KPIs, Gráficos y Próximos Pagos' },
-      { type: 'image', src: '/media/epifron-cuotas.webp', caption: 'Gestión de Cuotas y Calendario de Pagos' },
-      { type: 'image', src: '/media/epifron-proy.webp', caption: 'Proyecciones y Análisis Real vs Proyectado' },
-      { type: 'image', src: '/media/epifron-inv.webp', caption: 'Portfolio de Inversiones (CEDEARs, Cripto, Dólares)' },
-      { type: 'image', src: '/media/epifron-chat.webp', caption: 'Conversación vía Telegram' },
-      { type: 'image', src: '/media/epifron-arch.webp', caption: 'Diagrama de Arquitectura del Sistema' }
+      { type: 'video', src: '/media/epifron-chat.webm', poster: '/media/epifron-chat-poster.webp', caption: 'Demo del Asistente Flotante Epi: Registro de gastos y consulta en lenguaje natural' },
+      { type: 'image', src: '/media/epifron-dash.webp', caption: 'Dashboard Swiss Archival: Hero bimonetario ARS/USD, asset allocation y métricas Bento' },
+      { type: 'image', src: '/media/epifron-cuotas.webp', caption: 'Módulo de Tarjetas y Cuotas: Tarjetas estilo Apple Wallet y amortización' },
+      { type: 'image', src: '/media/epifron-movimientos.webp', caption: 'Libro Mayor Forense: Filtros interactivos con chips, búsqueda y conciliación' },
+      { type: 'image', src: '/media/epifron-inv.webp', caption: 'Portafolio de Inversiones: CEDEARs, Cripto y Dólares con cotizaciones en vivo' },
+      { type: 'image', src: '/media/epifron-proy.webp', caption: 'Proyecciones Financieras: Comparativa real vs proyectado mes a mes' },
+      { type: 'image', src: '/media/epifron-tarjetas.webp', caption: 'Gestión de Tarjetas: Límites de consumo y alertas de vencimiento' }
     ],
-    fullDescription: "Epifron es un asistente y plataforma de finanzas personales que integra Inteligencia Artificial para el registro rápido de gastos. Mediante chat natural (ej. 'gasté 48500 en el super con la visa'), el sistema categoriza y almacena la transacción automáticamente. Acompañado de un dashboard detallado para seguimiento de cuotas, proyecciones e inversiones."
+    fullDescription: "Epifron es un SaaS de finanzas personales y gestión patrimonial bimonetaria (ARS/USD) diseñado bajo la estética Swiss Vintage Archival / Obsidian Matte. Integra un asistente conversacional flotante (Epi) para registrar transacciones en lenguaje natural con inferencia ultrarrápida, complementado por un dashboard con Hero de patrimonio neto, cuadrícula Bento, tarjetas estilo Apple Wallet y libro mayor forense de alta densidad."
+  },
+  {
+    slug: "talos",
+    title: "Talos",
+    category: "AI Security & QA",
+    year: "2026",
+    description: "Bastión de contención y QA para agentes de IA empresariales. Auditorías continuas con paradigma LLM-as-a-Judge, 7 motores TOSCA-AI y red-teaming OWASP.",
+    color: "#c5a880", // Bronze Hefesto (Athen / Talos)
+    techStack: ["Next.js 16", "TypeScript", "Tailwind CSS v4", "SQLite WAL", "LLM-as-a-Judge", "OWASP Top 10"],
+    video: "/media/talos-tour.webm",
+    poster: "/media/talos-tour-poster.webp",
+    image: "/media/talos-dash.webp",
+    gallery: [
+      { type: 'video', src: '/media/talos-tour.webm', poster: '/media/talos-tour-poster.webp', caption: 'Recorrido Interactivo: Dashboard Bento, suites, inspector de auditoría y telemetría' },
+      { type: 'image', src: '/media/talos-dash.webp', caption: 'Panel de Control: Métricas de adherencia, quality gates y estadísticas globales' },
+      { type: 'image', src: '/media/talos-suites.webp', caption: 'Gestor de Suites: Casos de prueba con progressive disclosure y preview de prompts' },
+      { type: 'image', src: '/media/talos-runs.webp', caption: 'Consola de Auditoría: Inspector turn-by-turn del LLM Judge con veredictos PASS/FAIL/WARN' },
+      { type: 'image', src: '/media/talos-interactions.webp', caption: 'Observabilidad en Vivo: Trazas de ejecución de agentes, latencia y telemetría HTTP' },
+      { type: 'image', src: '/media/talos-adversarial.webp', caption: 'Módulo de Auto-Red-Teaming: Pruebas generativas contra OWASP Top 10 for LLMs' }
+    ],
+    fullDescription: "Talos es una plataforma integral para certificar, auditar y contener agentes autónomos de IA en entornos corporativos. Implementa el paradigma LLM-as-a-Judge para evaluar fidelidad a directivas (ground truth), defensas contra jailbreaks y prompt injection (OWASP LLM01), contención de tool-calling en sandbox y telemetría de ejecución multi-canal en tiempo real."
   },
   {
     slug: "aevni",
@@ -29,7 +50,6 @@ export const PROJECTS = [
     description: "Herramienta optimizadora, creadora y editora de prompts. Maximiza la calidad de las interacciones con LLMs mediante ingeniería de prompts avanzada.",
     color: "#8b5cf6", // Purple (AI)
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Anthropic Claude API", "Framer Motion"],
-    liveUrl: "https://aevni.website/",
     video: "/media/aevni-optimizar.webm",
     poster: "/media/aevni-optimizar-poster.webp",
     image: "/media/aevni.webp",

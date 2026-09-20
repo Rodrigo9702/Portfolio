@@ -1,3 +1,6 @@
+---
+description: "Portafolio profesional de Rodrigo Castillo: carta de presentación interactiva como AI Agent Engineer, con las tecnologías utilizadas."
+---
 # Rodrigo Castillo - Portfolio
 
 Bienvenido al repositorio de mi portafolio profesional interactivo. Este proyecto fue diseñado y desarrollado completamente desde cero, con el objetivo de demostrar mis capacidades en el desarrollo Frontend moderno, la construcción de experiencias de usuario (UX/UI) fluidas, y la integración de animaciones avanzadas y entornos 3D en la web.
@@ -21,7 +24,7 @@ El portafolio está construido utilizando un stack moderno y escalable, prioriza
 - **Esfera 3D Interactiva**: El componente principal de bienvenida renderiza una esfera construida con `IcosahedronGeometry` que "respira" mediante deformación de vértices con ruido de perlin y reacciona al movimiento del cursor del usuario.
 - **Cursor Magnético Personalizado**: Reemplazo total del cursor estándar del navegador por una versión dinámica que se acopla magnéticamente a los elementos interactivos.
 - **Animaciones al Hacer Scroll**: Los elementos de la interfaz aparecen gradualmente mientras se navega, gracias a interceptores de visibilidad en el viewport.
-- **Previsualizaciones Dinámicas**: Un sistema complejo de *hover states* permite al usuario ver videos, capturas de pantalla de mis proyectos (Epifron, AEVNI, Career Tracker), o mis certificados obtenidos, directamente en la lista principal antes de entrar al proyecto.
+- **Previsualizaciones Dinámicas**: Un sistema complejo de *hover states* permite al usuario ver videos, capturas de pantalla de mis proyectos (Epifron, Talos, AEVNI, Career Tracker), o mis certificados obtenidos, directamente en la lista principal antes de entrar al proyecto.
 - **Rutas Dinámicas de Proyectos**: Cada proyecto cuenta con una página en profundidad (`/projects/[slug]`) que detalla las características técnicas mediante galerías asíncronas.
 
 ## Despliegue Local
