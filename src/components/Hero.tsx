@@ -3,12 +3,14 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [time, setTime] = useState<string>("");
   const [isDesktop, setIsDesktop] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 1024);
@@ -367,7 +369,7 @@ export default function Hero() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <span className="text-white/80 text-[11px] sm:text-xs font-mono">
-              Disponible para proyectos · Buenos Aires {time ? `(${time}hs)` : ""}
+              {t.hero.available} {time ? `(${time}hs)` : ""}
             </span>
           </motion.div>
           
@@ -377,7 +379,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-[2.5rem] sm:text-6xl md:text-8xl font-bold tracking-tighter text-white uppercase leading-[0.93] mb-6 sm:mb-8"
           >
-            AI AGENT <br /> DEVELOPER
+            {t.hero.titleLine1} <br /> {t.hero.titleLine2}
           </motion.h1>
 
           <motion.div
@@ -387,10 +389,10 @@ export default function Hero() {
             className="flex flex-col gap-4 text-white/80 max-w-xl text-sm sm:text-base md:text-lg font-light leading-relaxed mb-10 sm:mb-12"
           >
             <p>
-              Especialista en sistemas conversacionales avanzados, orquestación de flujos agénticos (LLMs) y arquitectura de software escalable.
+              {t.hero.description}
             </p>
             <p className="text-xs sm:text-sm font-mono text-white/60">
-              Construyendo en <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">GitHub</a> · Trayectoria en <a href="https://www.linkedin.com/in/rodrigoncastillo/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">LinkedIn</a>
+              {t.hero.githubPrefix} <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">GitHub</a> · {t.hero.linkedinPrefix} <a href="https://www.linkedin.com/in/rodrigoncastillo/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-white/30 hover:decoration-white transition-colors">LinkedIn</a>
             </p>
           </motion.div>
 
@@ -409,7 +411,7 @@ export default function Hero() {
             }}
           >
             <span className="text-white/50 text-[10px] tracking-[0.2em] uppercase font-mono group-hover:text-white transition-colors">
-              Desliza para explorar ↓
+              {t.hero.scrollDown}
             </span>
             <div className="w-[1px] h-10 bg-white/20 relative overflow-hidden ml-4">
               <motion.div 

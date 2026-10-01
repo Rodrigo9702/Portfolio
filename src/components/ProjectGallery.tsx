@@ -1,11 +1,7 @@
 "use client";
 
-type GalleryItem = {
-  type: string;
-  src: string;
-  poster?: string;
-  caption: string;
-};
+import { useLanguage } from "@/context/LanguageContext";
+import { getLocalizedText, GalleryItem } from "@/data/projects";
 
 export default function ProjectGallery({ 
   gallery, 
@@ -32,6 +28,9 @@ function GalleryImage({
   idx: number;
   accentColor: string;
 }) {
+  const { language, t } = useLanguage();
+  const caption = getLocalizedText(item.caption, language);
+
   return (
     <div className="flex flex-col gap-6">
       
@@ -46,7 +45,7 @@ function GalleryImage({
             <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
           </div>
           <div className="text-[11px] font-mono text-white/40 tracking-wider">
-            PREVIEW 0{idx + 1}
+            {t.projectDetail.previewPrefix} 0{idx + 1}
           </div>
           <div className="w-12" />
         </div>
@@ -66,7 +65,7 @@ function GalleryImage({
           ) : (
             <img 
               src={item.src} 
-              alt={item.caption}
+              alt={caption}
               className="w-full h-auto block"
             />
           )}
@@ -83,7 +82,7 @@ function GalleryImage({
       <div className="flex items-start gap-4 px-2">
         <span className="text-xs font-mono text-white/40 mt-1">0{idx + 1}</span>
         <p className="text-base sm:text-lg text-white/80 font-light max-w-3xl leading-relaxed">
-          {item.caption}
+          {caption}
         </p>
       </div>
     </div>

@@ -3,101 +3,44 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useState, MouseEvent } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const EXPERIENCE = [
+const CERT_META = [
   {
-    role: "AI Agent Developer Ssr",
-    company: "Botmaker",
-    date: "Abril 2025 - Actualidad",
-    desc: [
-      "Lidero el diseño y despliegue de soluciones agénticas de IA escalables, integrando la lógica de negocio con LLMs.",
-      "Desarrollo ecosistemas conversacionales de alta complejidad mediante la definición de intenciones y orquestación de Agentic Workflows.",
-      "Implemento MCP (Model Context Protocol) para integración segura de herramientas corporativas.",
-      "Automatizo procesos y construyo integraciones robustas en JavaScript, Node.js y Python.",
-    ],
-  },
-  {
-    role: "QA Tester Jr / Analista de Testing",
-    company: "QActions Group",
-    date: "Septiembre 2024 - Marzo 2025",
-    desc: [
-      "Diseñé y ejecuté casos de prueba manuales y automatizados para sistemas críticos.",
-      "Automaticé procesos de testing con Tricentis Tosca (certificaciones AS1 y AS2).",
-      "Identifiqué y documenté defectos en el ciclo de vida del software (SDLC).",
-      "Trabajé en equipos técnicos bajo marcos Agile y Scrum.",
-    ],
-  },
-];
-
-const EDUCATION = [
-  {
-    degree: "Ingeniería en Informática",
-    institution: "Universidad Nacional de La Matanza",
-    date: "2022 - Actualidad (3.º año)",
-  },
-  {
-    degree: "Técnico Electrónico",
-    institution: "Escuela Secundaria Técnica N.° 6",
-    date: "2015 - 2021",
-  },
-];
-
-const CERTIFICATIONS = [
-  {
-    title: "Foundation: Introduction to Deep Agents",
-    issuer: "LangChain",
     url: "https://academy.langchain.com/certificates/y9essigl5u",
     localImage: "/media/certs/LangChain.jpg"
   },
   {
-    title: "Claude 101",
-    issuer: "Anthropic",
     url: "https://verify.skilljar.com/c/zw6u3mvun8s9"
   },
   {
-    title: "AI Fluency: Framework & Foundations",
-    issuer: "Anthropic",
     url: "https://verify.skilljar.com/c/xcudfesa58at"
   },
   {
-    title: "n8n Course Level 2",
-    issuer: "n8n",
     url: "#",
     localImage: "/media/certs/n8n_lvl2.jpg"
   },
   {
-    title: "n8n Course Level 1",
-    issuer: "n8n",
     url: "#",
     localImage: "/media/certs/n8n_lvl1.jpg"
   },
   {
-    title: "Gestión de Proyectos y Fundamentos Agile",
-    issuer: "Santander Open Academy",
     url: "#",
     localImage: "/media/certs/scrum_santander.jpg"
   },
   {
-    title: "Programación orientada a objetos con IA",
-    issuer: "EducacionIT",
     url: "https://www.educacionit.com/perfil/rodrigo-castillo-1099958/certificado/81291?_gl",
     localImage: "/media/certs/educacion_it.png"
   },
   {
-    title: "Tricentis Tosca Fundamentals (AS2)",
-    issuer: "Tricentis",
     url: "https://academy.tricentis.com/share/v1/gamification/assigned_badge/db97fd29-0266-4c85-a6a0-568022362ec1/shared?lang=en",
     localImage: "/media/certs/Tricentis_AS2.png"
   },
   {
-    title: "Tricentis Tosca Fundamentals (AS1)",
-    issuer: "Tricentis",
     url: "https://academy.tricentis.com/share/v1/gamification/assigned_badge/2fd69330-f69c-4aa4-8398-3fd6eb1c33ff/shared?lang=en",
     localImage: "/media/certs/Tricentis_AS1.png"
   },
   {
-    title: "Deep Learning",
-    issuer: "CACIC",
     url: "#",
     localImage: "/media/certs/cacic.jpg"
   }
@@ -105,6 +48,7 @@ const CERTIFICATIONS = [
 
 export default function Experience() {
   const [hoveredCert, setHoveredCert] = useState<number | null>(null);
+  const { t } = useLanguage();
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -115,6 +59,12 @@ export default function Experience() {
     mouseX.set(e.clientX - 160);
     mouseY.set(e.clientY - 120);
   };
+
+  const certifications = CERT_META.map((meta, i) => ({
+    ...meta,
+    title: t.experience.certifications[i]?.title || "",
+    issuer: t.experience.certifications[i]?.issuer || "",
+  }));
 
   return (
     <section 
@@ -136,10 +86,10 @@ export default function Experience() {
         }}
         transition={{ duration: 0.2 }}
       >
-        {hoveredCert !== null && (CERTIFICATIONS[hoveredCert].localImage || CERTIFICATIONS[hoveredCert].url !== "#") ? (
+        {hoveredCert !== null && (certifications[hoveredCert].localImage || certifications[hoveredCert].url !== "#") ? (
           <img 
-            src={CERTIFICATIONS[hoveredCert].localImage || `https://api.microlink.io/?url=${encodeURIComponent(CERTIFICATIONS[hoveredCert].url)}&screenshot=true&meta=false&embed=screenshot.url`}
-            alt="Certificate Preview"
+            src={certifications[hoveredCert].localImage || `https://api.microlink.io/?url=${encodeURIComponent(certifications[hoveredCert].url)}&screenshot=true&meta=false&embed=screenshot.url`}
+            alt={t.experience.previewAlt}
             className="w-full h-full object-cover opacity-95"
           />
         ) : (
@@ -147,7 +97,7 @@ export default function Experience() {
             <span className="text-white/60 text-xs font-mono tracking-widest mb-2">CREDENTIAL PREVIEW</span>
             {hoveredCert !== null && (
                <span className="text-white font-medium text-sm">
-                  {CERTIFICATIONS[hoveredCert].issuer}
+                  {certifications[hoveredCert].issuer}
                </span>
             )}
             <ArrowUpRight className="w-6 h-6 text-white/70 mt-3" />
@@ -160,12 +110,16 @@ export default function Experience() {
         {/* Experience Column */}
         <div className="flex-1">
           <div className="mb-12">
-            <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">TRAYECTORIA</span>
-            <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">Experiencia Laboral</h2>
+            <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">
+              {t.experience.sectionLabel}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">
+              {t.experience.sectionTitle}
+            </h2>
           </div>
 
           <div className="flex flex-col gap-12">
-            {EXPERIENCE.map((exp, i) => (
+            {t.experience.jobs.map((exp, i) => (
               <motion.div 
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
@@ -197,12 +151,16 @@ export default function Experience() {
         <div className="flex-1 flex flex-col gap-16">
           <div>
             <div className="mb-8">
-              <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">FORMACIÓN</span>
-              <h2 className="text-2xl md:text-3xl font-light text-white tracking-tight">Educación</h2>
+              <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">
+                {t.experience.eduLabel}
+              </span>
+              <h2 className="text-2xl md:text-3xl font-light text-white tracking-tight">
+                {t.experience.eduTitle}
+              </h2>
             </div>
             
             <div className="flex flex-col gap-4">
-              {EDUCATION.map((edu, i) => (
+              {t.experience.education.map((edu, i) => (
                 <motion.div 
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
@@ -225,12 +183,16 @@ export default function Experience() {
 
           <div>
             <div className="mb-8">
-              <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">LOGROS & VALIDACIONES</span>
-              <h2 className="text-2xl md:text-3xl font-light text-white tracking-tight">Certificaciones Destacadas</h2>
+              <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">
+                {t.experience.certLabel}
+              </span>
+              <h2 className="text-2xl md:text-3xl font-light text-white tracking-tight">
+                {t.experience.certTitle}
+              </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {CERTIFICATIONS.map((cert, i) => (
+              {certifications.map((cert, i) => (
                 <a
                   key={i}
                   href={cert.url}

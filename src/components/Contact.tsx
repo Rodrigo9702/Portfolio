@@ -3,9 +3,11 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowRight, Check, Copy } from "lucide-react";
 import { useRef, useState, MouseEvent } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
+  const { t } = useLanguage();
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -45,12 +47,14 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="w-full flex flex-col items-center"
           >
-            <span className="text-xs font-mono text-white/50 tracking-wider block mb-4">¿TIENES UN PROYECTO EN MENTE?</span>
+            <span className="text-xs font-mono text-white/50 tracking-wider block mb-4">
+              {t.contact.sectionLabel}
+            </span>
             <h2 className="text-3xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-white uppercase leading-[0.95] mb-6 sm:mb-8">
-              Iniciemos una <br /> conversación
+              {t.contact.titleLine1} <br /> {t.contact.titleLine2}
             </h2>
             <p className="text-sm sm:text-lg text-white/70 max-w-lg mb-8 sm:mb-10 font-light">
-              Disponible para colaborar en desarrollo de agentes de IA, integraciones y soluciones a medida.
+              {t.contact.description}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
@@ -74,17 +78,17 @@ export default function Contact() {
               <button
                 onClick={copyEmail}
                 className="flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 rounded-full border border-white/15 bg-white/[0.03] text-white/80 hover:text-white hover:border-white/30 active:scale-[0.98] transition-all text-xs sm:text-sm font-mono w-full sm:w-auto"
-                title="Copiar email al portapapeles"
+                title={t.contact.copyEmail}
               >
                 {copied ? (
                   <>
                     <Check className="w-4 h-4 text-emerald-400" />
-                    <span className="text-emerald-400">Copiado al portapapeles</span>
+                    <span className="text-emerald-400">{t.contact.copied}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-4 h-4 text-white/60" />
-                    <span>Copiar correo</span>
+                    <span>{t.contact.copyEmail}</span>
                   </>
                 )}
               </button>
@@ -96,12 +100,12 @@ export default function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 border-t border-white/10 text-xs font-mono tracking-wider text-white/60">
           
           <div className="flex flex-col gap-2">
-            <span className="text-white/30 uppercase">Ubicación</span>
-            <span className="text-white/80">Buenos Aires, Argentina</span>
+            <span className="text-white/30 uppercase">{t.contact.location}</span>
+            <span className="text-white/80">{t.contact.locationValue}</span>
           </div>
 
           <div className="flex flex-col gap-2 md:items-center">
-            <span className="text-white/30 uppercase">Canales</span>
+            <span className="text-white/30 uppercase">{t.contact.channels}</span>
             <div className="flex gap-6 text-white/80">
               <a href="https://github.com/Rodrigo9702" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub ↗</a>
               <a href="https://linkedin.com/in/rodrigoncastillo" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn ↗</a>
@@ -109,7 +113,7 @@ export default function Contact() {
           </div>
 
           <div className="flex flex-col gap-2 md:items-end">
-            <span className="text-white/30 uppercase">Desarrollo & Diseño</span>
+            <span className="text-white/30 uppercase">{t.contact.devDesign}</span>
             <div className="flex items-center gap-2.5 text-white/80">
               <span>Rodrigo Castillo</span>
               <svg viewBox="0 0 9 8" className="w-3.5 h-3.5 fill-blue-500 animate-pulse" xmlns="http://www.w3.org/2000/svg">

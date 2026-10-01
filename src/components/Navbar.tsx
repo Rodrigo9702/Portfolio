@@ -4,6 +4,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -11,6 +12,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const { scrollY } = useScroll();
+  const { language, setLanguage, t } = useLanguage();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -23,11 +25,11 @@ export default function Navbar() {
   });
 
   const navLinks = [
-    { name: "Sobre mí", href: "/#about" },
-    { name: "Experiencia", href: "/#experience" },
-    { name: "Skills", href: "/#skills" },
-    { name: "Proyectos", href: "/#projects" },
-    { name: "Contacto", href: "/#contact" },
+    { name: t.nav.about, href: "/#about" },
+    { name: t.nav.experience, href: "/#experience" },
+    { name: t.nav.skills, href: "/#skills" },
+    { name: t.nav.projects, href: "/#projects" },
+    { name: t.nav.contact, href: "/#contact" },
   ];
 
   return (
@@ -64,14 +66,49 @@ export default function Navbar() {
           </nav>
         )}
 
-        <a 
-          href="/cv.pdf" 
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs font-mono tracking-wider px-5 py-2.5 rounded-full border border-white/20 text-white bg-white/[0.02] hover:bg-white hover:text-black active:scale-[0.98] transition-all"
-        >
-          CV ↗
-        </a>
+        <div className="flex items-center gap-3">
+          {/* Language Switcher Toggle */}
+          <div 
+            className="flex items-center p-0.5 rounded-full bg-white/[0.04] border border-white/15 backdrop-blur-md text-[11px] font-mono"
+            role="group"
+            aria-label={t.nav.langAria}
+          >
+            <button
+              type="button"
+              onClick={() => setLanguage("es")}
+              className={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+                language === "es"
+                  ? "bg-white text-black font-semibold shadow-sm"
+                  : "text-white/60 hover:text-white"
+              }`}
+              title="Versión en Español"
+            >
+              ES
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage("en")}
+              className={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+                language === "en"
+                  ? "bg-white text-black font-semibold shadow-sm"
+                  : "text-white/60 hover:text-white"
+              }`}
+              title="English version"
+            >
+              EN
+            </button>
+          </div>
+
+          {/* Dynamic Localized CV Link */}
+          <a 
+            href={t.nav.cvUrl} 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-mono tracking-wider px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-white/20 text-white bg-white/[0.02] hover:bg-white hover:text-black active:scale-[0.98] transition-all"
+          >
+            {t.nav.cvLabel}
+          </a>
+        </div>
       </div>
     </motion.header>
   );

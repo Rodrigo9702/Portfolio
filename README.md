@@ -24,8 +24,9 @@ El portafolio está construido utilizando un stack moderno y escalable, prioriza
 - **Esfera 3D Interactiva**: El componente principal de bienvenida renderiza una esfera construida con `IcosahedronGeometry` que "respira" mediante deformación de vértices con ruido de perlin y reacciona al movimiento del cursor del usuario.
 - **Cursor Magnético Personalizado**: Reemplazo total del cursor estándar del navegador por una versión dinámica que se acopla magnéticamente a los elementos interactivos.
 - **Animaciones al Hacer Scroll**: Los elementos de la interfaz aparecen gradualmente mientras se navega, gracias a interceptores de visibilidad en el viewport.
-- **Previsualizaciones Dinámicas**: Un sistema complejo de *hover states* permite al usuario ver videos, capturas de pantalla de mis proyectos (Epifron, Talos, AEVNI, Career Tracker), o mis certificados obtenidos, directamente en la lista principal antes de entrar al proyecto.
-- **Rutas Dinámicas de Proyectos**: Cada proyecto cuenta con una página en profundidad (`/projects/[slug]`) que detalla las características técnicas mediante galerías asíncronas.
+- **Internacionalización Bilingüe (Español / Inglés)**: Sistema reactivo sin recarga mediante `LanguageContext`, persistencia en `localStorage`, switch `ES` / `EN` en navbar y traducción integral de todas las secciones, proyectos y pie de página.
+- **Rutas y Currículum Vitae Dinámico**: El botón de CV en la navegación se adapta automáticamente al idioma seleccionado (`/cv_es.pdf` para español y `/cv_en.pdf` para inglés).
+- **Rutas Dinámicas de Proyectos**: Cada proyecto cuenta con una página en profundidad (`/projects/[slug]`) que detalla las características técnicas mediante galerías asíncronas y descripciones traducidas.
 
 ## Despliegue Local
 

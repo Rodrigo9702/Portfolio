@@ -139,18 +139,30 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
   );
 }
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function Skills() {
+  const { t } = useLanguage();
+
   return (
     <section id="skills" className="w-full py-24 md:py-32 px-5 sm:px-8 md:px-20 bg-[#1f1b18] text-white border-t border-white/5" style={{ perspective: "1000px" }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">STACK TECNOLÓGICO</span>
-          <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">Habilidades & Herramientas</h2>
+          <span className="text-xs font-mono text-white/50 tracking-wider block mb-2">
+            {t.skills.sectionLabel}
+          </span>
+          <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">
+            {t.skills.sectionTitle}
+          </h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {SKILL_CATEGORIES.map((cat, i) => (
-            <SkillCard key={i} cat={cat} index={i} />
+            <SkillCard 
+              key={i} 
+              cat={{ ...cat, title: t.skills.categories[i] || cat.title }} 
+              index={i} 
+            />
           ))}
         </div>
       </div>
